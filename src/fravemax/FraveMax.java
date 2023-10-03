@@ -1,20 +1,27 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
+
 package fravemax;
 
-/**
- *
- * @author emanu
- */
+import datos.Conexion;
+import datos.ProductoData;
+import entidades.*;
+import java.sql.Connection;
+
+
 public class FraveMax {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+Connection con=Conexion.getConexion();
+
+//Pruebas en el Main
+Producto prod =new Producto(1,10,"Licuadora","Licuadora Philips",Categoria.LINEABLANCA,20000,30,true);
+     ProductoData pd=new ProductoData();
+     //pd.agregarProducto(prod);
+     pd.modificarProducto(prod);
+
+
     }
     
 }

@@ -1,42 +1,43 @@
 package entidades;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
-
-/**
- *
- * @author Usuario
- */
 public class Cliente {
     private int idCliente;
     private int dni;
     private String apellido;
     private String nombre;
     private String domicilio;
+    private String tel;
     private String email; 
 
     public Cliente() {
     }
 
-    public Cliente(int dni, String apellido, String nombre, String domicilio, String email) {
+    public Cliente(int dni, String apellido, String nombre, String domicilio, String tel,String email) {
         this.dni = dni;
         this.apellido = apellido;
         this.nombre = nombre;
         this.domicilio = domicilio;
+        this.tel=tel;
         this.email = email;
     }
 
-    public Cliente(int idCliente, int dni, String apellido, String nombre, String domicilio, String email) {
+    public Cliente(int idCliente, int dni, String apellido, String nombre, String domicilio,String tel, String email) {
         this.idCliente = idCliente;
         this.dni = dni;
         this.apellido = apellido;
         this.nombre = nombre;
         this.domicilio = domicilio;
+        this.tel=tel;
         this.email = email;
+    }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
     }
 
     public int getIdCliente() {

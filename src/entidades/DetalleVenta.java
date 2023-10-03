@@ -1,16 +1,29 @@
 package entidades;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
-/**
- *
- * @author Usuario
- */
 public class DetalleVenta {
+    private int idDetalle,idVenta,idProducto,cantidad;
+    private double total;
+    private boolean entregado;
+
+    public DetalleVenta() {
+    }
+
+    public DetalleVenta(int idVenta, int idProducto, int cantidad, double total, boolean entregado) {
+        this.idVenta = idVenta;
+        this.idProducto = idProducto;
+        this.cantidad = cantidad;
+        this.total = total;
+        this.entregado = entregado;
+    }
+
+    public DetalleVenta(int idDetalle, int idVenta, int idProducto, int cantidad, double total, boolean entregado) {
+        this.idDetalle = idDetalle;
+        this.idVenta = idVenta;
+        this.idProducto = idProducto;
+        this.cantidad = cantidad;
+        this.total = total;
+        this.entregado = entregado;
+    }
+    
     
 }

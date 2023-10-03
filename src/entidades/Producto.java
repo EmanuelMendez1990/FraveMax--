@@ -1,22 +1,12 @@
 package entidades;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
-
-/**
- *
- * @author Usuario
- */
 public class Producto {
     private int idProducto;
     private int stock;
     private String nombre;
     private String descripcion;
-    private String categoria;
+    private Categoria categoria;
     private double precio;
     private int enOferta;
     private boolean estado;
@@ -24,7 +14,7 @@ public class Producto {
     public Producto() {
     }
 
-    public Producto(int stock, String nombre, String descripcion, String categoria, double precio, int enOferta, boolean estado) {
+    public Producto(int stock, String nombre, String descripcion, Categoria categoria, double precio, int enOferta, boolean estado) {
         this.stock = stock;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -34,7 +24,7 @@ public class Producto {
         this.estado = estado;
     }
 
-    public Producto(int idProducto, int stock, String nombre, String descripcion, String categoria, double precio, int enOferta, boolean estado) {
+    public Producto(int idProducto, int stock, String nombre, String descripcion, Categoria categoria, double precio, int enOferta, boolean estado) {
         this.idProducto = idProducto;
         this.stock = stock;
         this.nombre = nombre;
@@ -77,11 +67,11 @@ public class Producto {
         this.descripcion = descripcion;
     }
 
-    public String getCategoria() {
+    public Categoria getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(String categoria) {
+    public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
 
