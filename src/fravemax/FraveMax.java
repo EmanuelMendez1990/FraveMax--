@@ -39,7 +39,7 @@ Producto prod =new Producto(10,"Licuadora","Licuadora TOP HOUSE",Categoria.LINEA
 //pd.borrarProducto(1);
     
 
-List<Producto> lista= pd.buscarProductos("Licuadora");
+List<Producto> lista= pd.buscarProductos("Licuadora TOP");
         System.out.println(lista.size());
         for (Producto p: lista) 
         {

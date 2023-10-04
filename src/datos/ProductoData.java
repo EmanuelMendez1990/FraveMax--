@@ -139,13 +139,13 @@ public class ProductoData {
     }
    public List<Producto> buscarProductos(String busqueda){
 //       String sql="SELECT DISTINCT * FROM producto WHERE nombre LIKE '"+busqueda+"'% or descripcion LIKE '"+busqueda+"'%";
-       String sql ="SELECT * FROM producto WHERE nombre LIKE ?";
+       String sql ="SELECT * FROM producto WHERE nombre LIKE ? OR descripcion LIKE ?";
 ArrayList<Producto> productos = new ArrayList<>();
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, busqueda+ "%");
-//            ps.setString(2, busqueda);
+ ps.setString(2, busqueda+ "%");
             System.out.println(ps);
             ResultSet rs = ps.executeQuery();
 
