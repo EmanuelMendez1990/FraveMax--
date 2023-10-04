@@ -5,6 +5,9 @@ import datos.Conexion;
 import datos.ProductoData;
 import entidades.*;
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
+
 
 
 public class FraveMax {
@@ -16,12 +19,33 @@ public class FraveMax {
 Connection con=Conexion.getConexion();
 
 //Pruebas en el Main
-Producto prod =new Producto(1,10,"Licuadora","Licuadora Philips",Categoria.LINEABLANCA,20000,30,true);
+Producto prod =new Producto(10,"Licuadora","Licuadora TOP HOUSE",Categoria.LINEABLANCA,20000,30,true);
      ProductoData pd=new ProductoData();
-     //pd.agregarProducto(prod);
-     pd.modificarProducto(prod);
+//     pd.agregarProducto(prod);
+    //pd.modificarProducto(prod);
 
+//   ArrayList<Producto> lista= pd.listarProductos();
+//        for (Producto p: lista) 
+//        {
+//            System.out.println(""+p.getNombre());   
+//            System.out.println(p.getCategoria());
+//        }
 
-    }
+//Producto prod1=pd.listarProducto(1);
+//        System.out.println(prod1.getNombre());
+//
+//    }
+
+//pd.borrarProducto(1);
+    
+
+List<Producto> lista= pd.buscarProductos("Licuadora");
+        System.out.println(lista.size());
+        for (Producto p: lista) 
+        {
+            System.out.println(p.getNombre());   
+            System.out.println(p.getCategoria());
+        }
+}
     
 }
