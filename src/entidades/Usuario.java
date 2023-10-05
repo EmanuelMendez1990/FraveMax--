@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class Usuario {
     private int idUsuario;
-    private String rol;
+    private Rol rol;
     private int dni;
     private String nombre;
     private String apellido;
@@ -16,7 +16,7 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(String rol, int dni, String nombre, String apellido, Date fechaIngreso, String usuario, String pass, String tel, String domicilio, String email) {
+    public Usuario(Rol rol, int dni, String nombre, String apellido, Date fechaIngreso, String usuario, String pass, String tel, String domicilio, String email) {
         this.rol = rol;
         this.dni = dni;
         this.nombre = nombre;
@@ -29,7 +29,7 @@ public class Usuario {
         this.email = email;
     }
 
-    public Usuario(int idUsuario, String rol, int dni, String nombre, String apellido, Date fechaIngreso, String usuario, String pass, String tel, String domicilio, String email) {
+    public Usuario(int idUsuario, Rol rol, int dni, String nombre, String apellido, Date fechaIngreso, String usuario, String pass, String tel, String domicilio, String email) {
         this.idUsuario = idUsuario;
         this.rol = rol;
         this.dni = dni;
@@ -77,11 +77,11 @@ public class Usuario {
         this.idUsuario = idUsuario;
     }
 
-    public String getRol() {
+    public Rol getRol() {
         return rol;
     }
 
-    public void setRol(String rol) {
+    public void setRol(Rol rol) {
         this.rol = rol;
     }
 
