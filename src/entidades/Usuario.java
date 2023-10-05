@@ -11,12 +11,12 @@ public class Usuario {
     private String apellido;
     private Date fechaIngreso;
     private String usuario;
-    private String pass;
+    private String pass, tel, domicilio, email;
 
     public Usuario() {
     }
 
-    public Usuario(String rol, int dni, String nombre, String apellido, Date fechaIngreso, String usuario, String pass) {
+    public Usuario(String rol, int dni, String nombre, String apellido, Date fechaIngreso, String usuario, String pass, String tel, String domicilio, String email) {
         this.rol = rol;
         this.dni = dni;
         this.nombre = nombre;
@@ -24,9 +24,12 @@ public class Usuario {
         this.fechaIngreso = fechaIngreso;
         this.usuario = usuario;
         this.pass = pass;
+        this.tel = tel;
+        this.domicilio = domicilio;
+        this.email = email;
     }
 
-    public Usuario(int idUsuario, String rol, int dni, String nombre, String apellido, Date fechaIngreso, String usuario, String pass) {
+    public Usuario(int idUsuario, String rol, int dni, String nombre, String apellido, Date fechaIngreso, String usuario, String pass, String tel, String domicilio, String email) {
         this.idUsuario = idUsuario;
         this.rol = rol;
         this.dni = dni;
@@ -35,7 +38,36 @@ public class Usuario {
         this.fechaIngreso = fechaIngreso;
         this.usuario = usuario;
         this.pass = pass;
+        this.tel = tel;
+        this.domicilio = domicilio;
+        this.email = email;
     }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
+
+    public String getDomicilio() {
+        return domicilio;
+    }
+
+    public void setDomicilio(String domicilio) {
+        this.domicilio = domicilio;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    
 
     public int getIdUsuario() {
         return idUsuario;
