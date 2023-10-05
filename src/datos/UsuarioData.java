@@ -13,16 +13,19 @@ public class UsuarioData {
     }
     
     public void agregarUsuario(Usuario user) {
-        String sql = "INSERT INTO usuario (rol,dni,nombre,apellido,fechaIngreso,usuario,pass) VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO usuario (rol,dni,nombre,apellido,fechaIngreso,usuario,pass,tel,domicilio,email) VALUES (?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, user.getRol());
+            ps.setString(1, user.getRol().toString());
             ps.setInt(2, user.getDni());
             ps.setString(3, user.getNombre());
             ps.setString(4, user.getApellido());
             ps.setString(5, user.getFechaIngreso().toString());
             ps.setString(6, user.getUsuario());
             ps.setString(7, user.getPass());
+            ps.setString(8, user.getTel());
+            ps.setString(9, user.getDomicilio());
+            ps.setString(10, user.getEmail());
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
 
@@ -100,4 +103,41 @@ public Usuario listarUsuario(String nombreUsuario){
         }
         return user;
     }
+
+public ArrayList<Usuario> listarClientes(){
+    ArrayList<Usuario> lista = new ArrayList<>();
+     String sql = "SELECT * FROM usuario WHERE rol = 'Cliente'";
+     //-----
+try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            System.out.println(ps);
+            ResultSet rs = ps.executeQuery();
+
+           while (rs.next()) {
+                
+                Usuario usuario = new Usuario();
+                usuario.setIdUsuario(rs.getInt("idUsuario"));
+                usuario.setRol(Rol.valueOf(rs.getString("rol")));
+                usuario.setDni(rs.getInt("dni"));
+                usuario.setNombre(rs.getString("nombre"));
+                usuario.setApellido(rs.getString("apellido"));
+                usuario.setFechaIngreso(rs.getDate("fechaIngreso"));
+                usuario.setUsuario(rs.getString("usuario"));
+                usuario.setPass(rs.getString("pass"));
+                usuario.setTel(rs.getString("tel"));
+                usuario.setDomicilio(rs.getString("domicilio"));
+                usuario.setEmail(rs.getString("email"));
+                
+                lista.add(usuario);
+                
+            }
+ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error. No se encontro " + ex.getMessage());
+
+        }     
+//-----
+     
+    return lista;
+}
 }
