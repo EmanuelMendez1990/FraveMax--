@@ -4,23 +4,23 @@ import java.util.Date;
 
 public class Venta {
    
-    private int idVenta,idCliente,idUsuario;
+    private int idVenta,idUsuario;
     private Date fecha;
     private double total;
 
     public Venta() {
     }
 
-    public Venta(int idCliente, int idUsuario, Date fecha, double total) {
-        this.idCliente = idCliente;
+    public Venta( int idUsuario, Date fecha, double total) {
+        
         this.idUsuario = idUsuario;
         this.fecha = fecha;
         this.total = total;
     }
 
-    public Venta(int idVenta, int idCliente, int idUsuario, Date fecha, double total) {
+    public Venta(int idVenta, int idUsuario, Date fecha, double total) {
         this.idVenta = idVenta;
-        this.idCliente = idCliente;
+       
         this.idUsuario = idUsuario;
         this.fecha = fecha;
         this.total = total;
@@ -34,13 +34,6 @@ public class Venta {
         this.idVenta = idVenta;
     }
 
-    public int getIdCliente() {
-        return idCliente;
-    }
-
-    public void setIdCliente(int idCliente) {
-        this.idCliente = idCliente;
-    }
 
     public int getIdUsuario() {
         return idUsuario;
