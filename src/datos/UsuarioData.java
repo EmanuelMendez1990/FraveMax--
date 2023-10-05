@@ -44,7 +44,7 @@ public class UsuarioData {
         String sql = "UPDATE usuario SET rol=?,dni=?,nombre=?,apellido=?,fechaIngreso=?,usuario=?,pass=? WHERE idUsuario=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, user.getRol());
+            ps.setString(1, user.getRol().toString());
             ps.setInt(2, user.getDni());
             ps.setString(3, user.getNombre());
             ps.setString(4, user.getApellido());
@@ -88,7 +88,7 @@ public Usuario listarUsuario(String nombreUsuario){
             while (rs.next()) {
                
                 user.setIdUsuario(rs.getInt("idUsuario"));
-                user.setRol(rs.getString("rol"));
+                user.setRol(Rol.valueOf(rs.getString("rol")));
                 user.setDni(rs.getInt("dni"));
                 user.setNombre(rs.getString("nombre"));
                 user.setApellido(rs.getString("apellido"));
