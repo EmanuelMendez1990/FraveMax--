@@ -39,6 +39,8 @@ public class VentaData {
             JOptionPane.showMessageDialog(null, "Error al guardar Venta: " + ex.getMessage());
 
         }
+        
+        
     }
             
     }
