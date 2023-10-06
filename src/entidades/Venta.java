@@ -3,27 +3,31 @@ package entidades;
 import java.util.Date;
 
 public class Venta {
-   
-    private int idVenta,idUsuario;
+
+    private int idVenta, idUsuario, idCliente;
     private Date fecha;
     private double total;
 
     public Venta() {
     }
 
-    public Venta( int idUsuario, Date fecha, double total) {
-        
+    public Venta(int idUsuario, Date fecha, double total, int idCliente) {
+
         this.idUsuario = idUsuario;
         this.fecha = fecha;
         this.total = total;
+        this.idCliente = idCliente;
+
     }
 
-    public Venta(int idVenta, int idUsuario, Date fecha, double total) {
+    public Venta(int idVenta, int idUsuario, Date fecha, double total, int idCliente) {
         this.idVenta = idVenta;
-       
+
         this.idUsuario = idUsuario;
         this.fecha = fecha;
         this.total = total;
+        this.idCliente = idCliente;
+
     }
 
     public int getIdVenta() {
@@ -33,7 +37,6 @@ public class Venta {
     public void setIdVenta(int idVenta) {
         this.idVenta = idVenta;
     }
-
 
     public int getIdUsuario() {
         return idUsuario;
@@ -58,6 +61,14 @@ public class Venta {
     public void setTotal(double total) {
         this.total = total;
     }
+
+    public int getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
+    }
     
-    
+
 }
