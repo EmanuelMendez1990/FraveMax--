@@ -11,12 +11,12 @@ public class Usuario {
     private String apellido;
     private Date fechaIngreso;
     private String usuario;
-    private String pass, tel, domicilio, email;
+    private String pass, salt, tel, domicilio, email;
 
     public Usuario() {
     }
 
-    public Usuario(Rol rol, int dni, String nombre, String apellido, Date fechaIngreso, String usuario, String pass, String tel, String domicilio, String email) {
+    public Usuario(Rol rol, int dni, String nombre, String apellido, Date fechaIngreso, String usuario, String pass, String salt, String tel, String domicilio, String email) {
         this.rol = rol;
         this.dni = dni;
         this.nombre = nombre;
@@ -24,12 +24,13 @@ public class Usuario {
         this.fechaIngreso = fechaIngreso;
         this.usuario = usuario;
         this.pass = pass;
+        this.salt = salt;
         this.tel = tel;
         this.domicilio = domicilio;
         this.email = email;
     }
 
-    public Usuario(int idUsuario, Rol rol, int dni, String nombre, String apellido, Date fechaIngreso, String usuario, String pass, String tel, String domicilio, String email) {
+    public Usuario(int idUsuario, Rol rol, int dni, String nombre, String apellido, Date fechaIngreso, String usuario, String salt,String pass, String tel, String domicilio, String email) {
         this.idUsuario = idUsuario;
         this.rol = rol;
         this.dni = dni;
@@ -38,9 +39,18 @@ public class Usuario {
         this.fechaIngreso = fechaIngreso;
         this.usuario = usuario;
         this.pass = pass;
+        this.pass = salt;
         this.tel = tel;
         this.domicilio = domicilio;
         this.email = email;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 
     public String getTel() {

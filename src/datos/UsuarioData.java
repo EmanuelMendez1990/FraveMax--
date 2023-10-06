@@ -13,7 +13,7 @@ public class UsuarioData {
     }
     
     public void agregarUsuario(Usuario user) {
-        String sql = "INSERT INTO usuario (rol,dni,nombre,apellido,fechaIngreso,usuario,pass,tel,domicilio,email) VALUES (?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO usuario (rol,dni,nombre,apellido,fechaIngreso,usuario,pass,salt,tel,domicilio,email) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, user.getRol().toString());
@@ -23,9 +23,10 @@ public class UsuarioData {
             ps.setString(5, user.getFechaIngreso().toString());
             ps.setString(6, user.getUsuario());
             ps.setString(7, user.getPass());
-            ps.setString(8, user.getTel());
-            ps.setString(9, user.getDomicilio());
-            ps.setString(10, user.getEmail());
+            ps.setString(8, user.getSalt());
+            ps.setString(9, user.getTel());
+            ps.setString(10, user.getDomicilio());
+            ps.setString(11, user.getEmail());
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
 
@@ -41,7 +42,7 @@ public class UsuarioData {
     }
 
     public void modificarUsuario(Usuario user) {
-        String sql = "UPDATE usuario SET rol=?,dni=?,nombre=?,apellido=?,fechaIngreso=?,usuario=?,pass=? WHERE idUsuario=?";
+        String sql = "UPDATE usuario SET rol=?,dni=?,nombre=?,apellido=?,fechaIngreso=?,usuario=?,pass=?,salt=? WHERE idUsuario=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, user.getRol().toString());
@@ -51,7 +52,8 @@ public class UsuarioData {
             ps.setString(5, user.getFechaIngreso().toString());
             ps.setString(6, user.getUsuario());
             ps.setString(7, user.getPass());
-            ps.setInt(8, user.getIdUsuario());
+            ps.setString(8, user.getSalt());
+            ps.setInt(9, user.getIdUsuario());
             int exito=ps.executeUpdate();
             if (exito == 1) {
                 JOptionPane.showMessageDialog(null, "Usuario modificado");
@@ -95,6 +97,7 @@ public Usuario listarUsuario(String nombreUsuario){
                 user.setFechaIngreso(rs.getDate("fechaIngreso"));
                 user.setUsuario(rs.getString("usuario"));
                 user.setPass(rs.getString("pass"));
+                user.setSalt(rs.getString("salt"));
             }
 
         } catch (SQLException ex) {
@@ -124,6 +127,7 @@ try {
                 usuario.setFechaIngreso(rs.getDate("fechaIngreso"));
                 usuario.setUsuario(rs.getString("usuario"));
                 usuario.setPass(rs.getString("pass"));
+                usuario.setSalt(rs.getString("salt"));
                 usuario.setTel(rs.getString("tel"));
                 usuario.setDomicilio(rs.getString("domicilio"));
                 usuario.setEmail(rs.getString("email"));
