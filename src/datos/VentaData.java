@@ -6,6 +6,7 @@ package datos;
 
 import entidades.*;
 import java.sql.*;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -31,7 +32,7 @@ public class VentaData {
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
 
-             if (rs.next()) {
+            if (rs.next()) {
                 venta.setIdVenta(rs.getInt(1));
                 JOptionPane.showMessageDialog(null, "Venta Guardada");
             }
@@ -40,9 +41,80 @@ public class VentaData {
             JOptionPane.showMessageDialog(null, "Error al guardar Venta: " + ex.getMessage());
 
         }
-        
-        
-    }
-            
     }
 
+    public ArrayList<Venta> buscarVentaPorVendedor(int idUsuario) {
+        ArrayList<Venta> lista = new ArrayList<>();
+        String sql = "SELECT * FROM venta WHERE idUsuario = " + idUsuario;
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Venta venta = new Venta();
+                venta.setIdVenta(rs.getInt("idVenta"));
+                venta.setIdUsuario(rs.getInt("idUsuario"));
+                venta.setFecha(rs.getDate("fecha"));
+                venta.setTotal(rs.getDouble("total"));
+                venta.setIdCliente(rs.getInt("idCliente"));
+                lista.add(venta);
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "ERROR " + ex.getMessage());
+
+        }
+        return lista;
+    }
+    
+    public ArrayList<Venta> buscarVentaPorCliente(int idCliente) {
+        ArrayList<Venta> lista = new ArrayList<>();
+        String sql = "SELECT * FROM venta WHERE idCliente = " + idCliente;
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Venta venta = new Venta();
+                venta.setIdVenta(rs.getInt("idVenta"));
+                venta.setIdUsuario(rs.getInt("idUsuario"));
+                venta.setFecha(rs.getDate("fecha"));
+                venta.setTotal(rs.getDouble("total"));
+                venta.setIdCliente(rs.getInt("idCliente"));
+                lista.add(venta);
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "ERROR " + ex.getMessage());
+
+        }
+        return lista;
+    }
+    
+    public ArrayList<Venta> buscarVentaPorFecha(Date fecha) {
+        ArrayList<Venta> lista = new ArrayList<>();
+        String sql = "SELECT * FROM venta WHERE fecha = '" + fecha + "'";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Venta venta = new Venta();
+                venta.setIdVenta(rs.getInt("idVenta"));
+                venta.setIdUsuario(rs.getInt("idUsuario"));
+                venta.setFecha(rs.getDate("fecha"));
+                venta.setTotal(rs.getDouble("total"));
+                venta.setIdCliente(rs.getInt("idCliente"));
+                lista.add(venta);
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "ERROR " + ex.getMessage());
+
+        }
+        return lista;
+    }
+}
