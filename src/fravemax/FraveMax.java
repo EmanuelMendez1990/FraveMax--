@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import vistas.Login;
 
 public class FraveMax {
 
@@ -47,22 +48,24 @@ public class FraveMax {
 //        }
 
 
-
-        UsuarioData ud = new UsuarioData();
-
-//        String password = "1234";
+//CREAR UN USUARIO NUEVO::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+//        UsuarioData ud = new UsuarioData();
+//
+//        String password = "4321";
 //        String saltvalue = PassEnc.getSaltvalue(30);
 //        String encryptedpassword = PassEnc.generateSecurePassword(password, saltvalue);
-
+//
 //        try {
-//            String date = "1976-08-13";
+//            String date = "1988-07-23";
 //            Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(date);
 //            java.sql.Date sqlDate2 = new java.sql.Date(date2.getTime());
-//            Usuario usuario1 = new Usuario(Rol.valueOf("CLIENTE"), 87654321, "Julia", "Roberts", sqlDate2, "julia321", encryptedpassword, saltvalue, "345234523", "AvSiempreViva1233", "julia_r@gmail.com");
+//            Usuario usuario1 = new Usuario(Rol.valueOf("ADMINISTRADOR"), 33654321, "Sebastian", "Rodriguez", sqlDate2, "Sebas", encryptedpassword, saltvalue, "456643443", "AvSiempreViva1234", "sebasr@gmail.com");
 //            ud.agregarUsuario(usuario1);
 //        } catch (ParseException ex) {
 //            System.out.println("ocurrio un error: " + ex.getMessage());
 //        }
+//FIN CREAR UN USUARIO NUEVO::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
 
 //      String  encryptedpassword = ud.listarUsuario("Julia321").getPass();
 //      String   saltvalue =ud.listarUsuario("Julia321").getSalt();
@@ -75,26 +78,35 @@ public class FraveMax {
 //        } else {
 //            System.out.println("Password es incorrecto");
 //        }
-        VentaData ventadata=new VentaData();
-        DetalleData detalledata =new DetalleData();
-        
-         
-           
-        try {
-            String date = "1976-08-13";
-            Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(date);
-                  java.sql.Date sqlDate2 = new java.sql.Date(date2.getDate());
-        Venta venta =new Venta(1,date2,20000,1);
-        ventadata.IngresarVenta(venta);
-        } catch (ParseException ex) {
-            Logger.getLogger(FraveMax.class.getName()).log(Level.SEVERE, null, ex);
-        }
-      
-        
-        DetalleVenta venta1 =new DetalleVenta(1,2,1,20000,true);
-detalledata.agregarDetalle(venta1);
+
+
+
+//        VentaData ventadata=new VentaData();
+//        DetalleData detalledata =new DetalleData();
+//        
+//         
+//           
+//        try {
+//            String date = "1976-08-13";
+//            Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(date);
+//                  java.sql.Date sqlDate2 = new java.sql.Date(date2.getDate());
+//        Venta venta =new Venta(1,date2,20000,1);
+//        ventadata.IngresarVenta(venta);
+//        } catch (ParseException ex) {
+//            Logger.getLogger(FraveMax.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//      
+//        
+//        DetalleVenta venta1 =new DetalleVenta(1,2,1,20000,true);
+//detalledata.agregarDetalle(venta1);
+
+
 //DetalleVenta venta2 =new DetalleVenta(1,2,1,20000,true);
 //detalledata.agregarDetalle(venta2);
+
+Login l =new Login();
+l.setVisible(true);
+
 
     }
 
