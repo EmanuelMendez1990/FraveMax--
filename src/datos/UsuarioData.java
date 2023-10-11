@@ -107,6 +107,38 @@ public Usuario listarUsuario(String nombreUsuario){
         return user;
     }
 
+public Usuario listarUsuario(int dni){
+    String sql = "SELECT * FROM usuario WHERE usuario.dni = '"+dni+"'";
+    Usuario user = new Usuario();
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+               
+                user.setIdUsuario(rs.getInt("idUsuario"));
+                user.setRol(Rol.valueOf(rs.getString("rol")));
+                user.setDni(rs.getInt("dni"));
+                user.setNombre(rs.getString("nombre"));
+                user.setApellido(rs.getString("apellido"));
+                user.setFechaIngreso(rs.getDate("fechaIngreso"));
+                user.setUsuario(rs.getString("usuario"));
+                user.setPass(rs.getString("pass"));
+                user.setSalt(rs.getString("salt"));
+                user.setTel(rs.getString("tel"));
+                user.setDomicilio(rs.getString("domicilio"));
+                user.setEmail(rs.getString("email"));
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage());
+
+        }
+        return user;
+    }
+
+
+
 public ArrayList<Usuario> listarClientes(){
     ArrayList<Usuario> lista = new ArrayList<>();
      String sql = "SELECT * FROM usuario WHERE rol = 'Cliente'";

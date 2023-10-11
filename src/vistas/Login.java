@@ -40,11 +40,23 @@ public class Login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Iniciar Sesion");
 
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Usuario");
 
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Contraseña");
+
+        jpPass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jpPassKeyReleased(evt);
+            }
+        });
 
         jbIniciar.setText("Iniciar");
         jbIniciar.addActionListener(new java.awt.event.ActionListener() {
@@ -60,69 +72,80 @@ public class Login extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(155, 155, 155)
-                        .addComponent(jbIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(131, 131, 131)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(148, 148, 148)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jtUsuario, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE))))
+                        .addGap(131, 131, 131)
+                        .addComponent(jpPass))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(162, 162, 162)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jpPass, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(15, 15, 15)))
-                .addContainerGap(162, Short.MAX_VALUE))
+                        .addGap(131, 131, 131)
+                        .addComponent(jtUsuario)))
+                .addContainerGap(119, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jbIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(153, 153, 153))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(17, 17, 17)
+                .addGap(20, 20, 20)
                 .addComponent(jLabel1)
-                .addGap(37, 37, 37)
+                .addGap(34, 34, 34)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(24, 24, 24)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jpPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(jbIniciar)
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addGap(32, 32, 32)
+                .addComponent(jbIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbIniciarActionPerformed
-String usuario,pass;
-usuario = jtUsuario.getText();
-pass = jpPass.getText();
-UsuarioData UD= new UsuarioData();
-Usuario us = UD.listarUsuario(usuario);
-if(us.getPass()!=null){
-  boolean login =PassEnc.verifyUserPassword(pass, us.getPass(), us.getSalt());
-  if(login && us.getRol() != Rol.CLIENTE){
-      JOptionPane.showMessageDialog(rootPane, "Inicio de sesion exitoso");
-      MenuPrincipal escritorio =new MenuPrincipal(us);
-      
-      Connection con=Conexion.getConexion();
-        escritorio.setVisible(true);
-      
-  }else{
-            JOptionPane.showMessageDialog(rootPane, "Error, usuario o contraseña incorrecta");
 
-  }
-}else{
-    JOptionPane.showMessageDialog(rootPane, "Error, usuario o contraseña incorrecta");
-}   
-        
+        Login();
     }//GEN-LAST:event_jbIniciarActionPerformed
+
+    private void Login() {
+        String usuario, pass;
+        usuario = jtUsuario.getText();
+        pass = jpPass.getText();
+        UsuarioData UD = new UsuarioData();
+        Usuario us = UD.listarUsuario(usuario);
+        if (us.getPass() != null) {
+            boolean login = PassEnc.verifyUserPassword(pass, us.getPass(), us.getSalt());
+            if (login && us.getRol() != Rol.CLIENTE) {
+             
+                MenuPrincipal escritorio = new MenuPrincipal(us);
+
+                Connection con = Conexion.getConexion();
+                escritorio.setVisible(true);
+                this.setVisible(false);
+
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Error, usuario o contraseña incorrecta");
+
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Error, usuario o contraseña incorrecta");
+        }
+    }
+
+    private void jpPassKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jpPassKeyReleased
+
+        if (evt.getKeyCode() == 10) {
+            Login();
+        }
+    }//GEN-LAST:event_jpPassKeyReleased
 
     /**
      * @param args the command line arguments

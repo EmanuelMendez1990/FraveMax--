@@ -113,6 +113,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         );
 
         jMenu1.setText("Usuarios");
+        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu1ActionPerformed(evt);
+            }
+        });
 
         jmVendedor.setText("Vendedores");
 
@@ -132,6 +137,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu11.setText("Clientes");
 
         jMenuItem3.setText("Agregar Clientes");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu11.add(jMenuItem3);
 
         jMenuItem4.setText("Editar Clientes");
@@ -215,7 +225,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        // TODO add your handling code here:
+Escritorio.removeAll();
+        Escritorio.repaint();
+        EditarCliente f = new EditarCliente();
+        f.setVisible(true);
+        Escritorio.add(f);
+        Escritorio.moveToFront(f);
+
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -226,6 +242,19 @@ Escritorio.removeAll();
         Escritorio.add(f);
         Escritorio.moveToFront(f);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+Escritorio.removeAll();
+        Escritorio.repaint();
+        AgregarCliente f = new AgregarCliente();
+        f.setVisible(true);
+        Escritorio.add(f);
+        Escritorio.moveToFront(f);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenu1ActionPerformed
 
     /**
      * @param args the command line arguments
