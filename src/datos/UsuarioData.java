@@ -51,6 +51,7 @@ public class UsuarioData {
             ps.setString(3, user.getNombre());
             ps.setString(4, user.getApellido());
             ps.setString(5, user.getFechaIngreso().toString());
+            System.out.println("Estamo aca: "+user.getFechaIngreso().toString());
             ps.setString(6, user.getUsuario());
             ps.setString(7, user.getPass());
             ps.setString(8, user.getSalt());

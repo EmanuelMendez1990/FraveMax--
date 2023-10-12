@@ -230,7 +230,6 @@ public class EditarVendedor extends javax.swing.JInternalFrame {
                         .addGap(7, 7, 7)
                         .addComponent(jLabel11)
                         .addGap(0, 0, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(jtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -293,7 +292,7 @@ public class EditarVendedor extends javax.swing.JInternalFrame {
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
 Usuario usuario =ud.listarUsuario(Integer.parseInt(jtDni.getText()));
-if (usuario.getDni()!=0){
+if (usuario.getRol()!=Rol.CLIENTE){
     jtDni.setText(usuario.getDni()+"");
     jtNombre.setText(usuario.getNombre()+"");
     jtApellido.setText(usuario.getApellido()+"");
@@ -337,19 +336,21 @@ if (usuario.getDni()!=0){
         usuario = jtUsuario.getText();
         pass = jtPass.getText();
 //    public Usuario(Rol rol, int dni, String nombre, String apellido, Date fechaIngreso, String usuario, String pass, String salt, String tel, String domicilio, String email) {
-System.out.println(pass);
+
         salt = PassEnc.getSaltvalue(30);
-        System.out.println(salt);
+        
         pass = PassEnc.generateSecurePassword(pass, salt);
-        System.out.println(pass);
+        
 
         try {
             LocalDate date = LocalDate.now();
+            System.out.println("date asd###"+date);
             Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(date.toString());
-
-            Usuario nuevo = new Usuario(idUsuario,rol, Integer.parseInt(dni), nombre, apellido, date2, usuario, salt, pass, tel, domicilio, email);
+            System.out.println("*****"+date2);
+                              java.sql.Date sqlDate = new java.sql.Date(date2.getDate());
+            Usuario nuevo = new Usuario(idUsuario,rol, Integer.parseInt(dni), nombre, apellido, sqlDate, usuario, salt, pass, tel, domicilio, email);
             ud.modificarUsuario(nuevo);
-            System.out.println(nuevo.getSalt());
+            
 //            Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(date.toString());
 //                  java.sql.Date sqlDate2 = new java.sql.Date(date2.getDate());
 //        System.out.println(sqlDate2);

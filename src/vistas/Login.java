@@ -129,7 +129,8 @@ public class Login extends javax.swing.JFrame {
 
                 Connection con = Conexion.getConexion();
                 escritorio.setVisible(true);
-                this.setVisible(false);
+//                this.setVisible(false);
+                this.dispose();
 
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Error, usuario o contraseña incorrecta");
