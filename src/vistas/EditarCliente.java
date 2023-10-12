@@ -15,7 +15,7 @@ public class EditarCliente extends javax.swing.JInternalFrame {
 
     public EditarCliente() {
         initComponents(); 
-
+jbAgregar.setEnabled(false);
     }
 
    
@@ -48,7 +48,7 @@ public class EditarCliente extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("Editar Cliente");
 
-        jLabel2.setText("Dni");
+        jLabel2.setText("Dni / Cuit");
 
         jLabel3.setText("Nombre");
 
@@ -178,7 +178,8 @@ public class EditarCliente extends javax.swing.JInternalFrame {
     private void jbAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregarActionPerformed
 
         if (validacion()) {
-            agregarUsuario();
+            editarUsuario();
+           jbAgregar.setEnabled(false);
         } else {
             JOptionPane.showMessageDialog(rootPane, "Faltan completar datos");
         }
@@ -186,6 +187,7 @@ public class EditarCliente extends javax.swing.JInternalFrame {
     private boolean validacion() {
         boolean valido = false;
         if (!jtDni.getText().isEmpty()
+            
                 && !jtNombre.getText().isEmpty()
                 && !jtApellido.getText().isEmpty()
                 && !jtTel.getText().isEmpty()
@@ -216,7 +218,6 @@ public class EditarCliente extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 Usuario usuario =ud.listarUsuario(Integer.parseInt(jtDni.getText()));
-        System.out.println(usuario.getNombre());
 if (usuario.getDni()!=0){
     jtDni.setText(usuario.getDni()+"");
     jtNombre.setText(usuario.getNombre()+"");
@@ -224,11 +225,22 @@ if (usuario.getDni()!=0){
     jtTel.setText(usuario.getTel()+"");
     jtDomicilio.setText(usuario.getDomicilio()+"");
     jtEmail.setText(usuario.getEmail()+"");
-   
+   jbAgregar.setEnabled(true);
+}else{
+    jtDni.setText("");
+    jtNombre.setText("");
+    jtApellido.setText("");
+    jtTel.setText("");
+    jtDomicilio.setText("");
+    jtEmail.setText("");
+    JOptionPane.showMessageDialog(rootPane, "No se encontro el usuario");
 }
     }//GEN-LAST:event_jButton1ActionPerformed
-    private void agregarUsuario() {
+    private void editarUsuario() {
         String dni, nombre, apellido, tel, domicilio, email, usuario, pass, salt;
+        int usuariobuscado=Integer.parseInt(jtDni.getText());
+        Usuario u =ud.listarUsuario(usuariobuscado);
+        int idUsuario=u.getIdUsuario();
         Rol rol = Rol.CLIENTE;
         dni = jtDni.getText();
         nombre = jtNombre.getText();
@@ -247,8 +259,11 @@ if (usuario.getDni()!=0){
             LocalDate date = LocalDate.now();
             Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(date.toString());
 
-            Usuario nuevo = new Usuario(rol, Integer.parseInt(dni), nombre, apellido, date2, usuario, pass, salt, tel, domicilio, email);
-            ud.agregarUsuario(nuevo);
+            Usuario nuevo = new Usuario(idUsuario,rol, Integer.parseInt(dni), nombre, apellido, date2, usuario, pass, salt, tel, domicilio, email);
+            ud.modificarUsuario(nuevo);
+           
+            
+            
 //            Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(date.toString());
 //                  java.sql.Date sqlDate2 = new java.sql.Date(date2.getDate());
 //        System.out.println(sqlDate2);

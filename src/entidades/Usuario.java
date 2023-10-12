@@ -39,7 +39,7 @@ public class Usuario {
         this.fechaIngreso = fechaIngreso;
         this.usuario = usuario;
         this.pass = pass;
-        this.pass = salt;
+        this.salt = salt;
         this.tel = tel;
         this.domicilio = domicilio;
         this.email = email;

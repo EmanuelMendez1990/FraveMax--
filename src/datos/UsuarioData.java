@@ -42,8 +42,9 @@ public class UsuarioData {
     }
 
     public void modificarUsuario(Usuario user) {
-        String sql = "UPDATE usuario SET rol=?,dni=?,nombre=?,apellido=?,fechaIngreso=?,usuario=?,pass=?,salt=? WHERE idUsuario=?";
+        String sql = "UPDATE usuario SET rol=?,dni=?,nombre=?,apellido=?,fechaIngreso=?,usuario=?,pass=?,salt=?,tel=?,domicilio=?,email=? WHERE idUsuario=?";
         try {
+            System.out.println(user.getSalt()+"base");
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, user.getRol().toString());
             ps.setInt(2, user.getDni());
@@ -53,7 +54,11 @@ public class UsuarioData {
             ps.setString(6, user.getUsuario());
             ps.setString(7, user.getPass());
             ps.setString(8, user.getSalt());
-            ps.setInt(9, user.getIdUsuario());
+            ps.setString(9, user.getTel());
+            ps.setString(10, user.getDomicilio());
+            ps.setString(11, user.getEmail());
+            
+            ps.setInt(12, user.getIdUsuario());
             int exito=ps.executeUpdate();
             if (exito == 1) {
                 JOptionPane.showMessageDialog(null, "Usuario modificado");

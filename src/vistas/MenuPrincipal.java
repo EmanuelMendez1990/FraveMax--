@@ -130,6 +130,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jmVendedor.add(jMenuItem1);
 
         jMenuItem2.setText("Editar");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jmVendedor.add(jMenuItem2);
 
         jMenu1.add(jmVendedor);
@@ -255,6 +260,15 @@ Escritorio.removeAll();
     private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenu1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+Escritorio.removeAll();
+        Escritorio.repaint();
+        EditarVendedor f = new EditarVendedor();
+        f.setVisible(true);
+        Escritorio.add(f);
+        Escritorio.moveToFront(f);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments

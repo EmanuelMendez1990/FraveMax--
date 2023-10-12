@@ -50,12 +50,12 @@ public class AgregarVendedor extends javax.swing.JInternalFrame {
         jtDomicilio = new javax.swing.JTextField();
         jtEmail = new javax.swing.JTextField();
         jtUsuario = new javax.swing.JTextField();
-        jtPass = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jbAgregar = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
-        jtPass2 = new javax.swing.JTextField();
+        jtPass = new javax.swing.JPasswordField();
+        jtPass2 = new javax.swing.JPasswordField();
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("Administrar");
@@ -147,23 +147,21 @@ public class AgregarVendedor extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jcbRol, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel10))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jtPass2)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jbAgregar)
-                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(jtPass2, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jtUsuario)
-                                    .addComponent(jtPass)))))
+                                    .addComponent(jbAgregar)
+                                    .addComponent(jtPass)
+                                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(125, 125, 125)))
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -187,8 +185,8 @@ public class AgregarVendedor extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10))
+                    .addComponent(jLabel10)
+                    .addComponent(jtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -197,10 +195,10 @@ public class AgregarVendedor extends javax.swing.JInternalFrame {
                             .addComponent(jtTel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(7, 7, 7)
-                        .addComponent(jLabel11)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jtPass2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                        .addComponent(jLabel11)
+                        .addGap(18, 18, 18)
+                        .addComponent(jtPass2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -230,6 +228,7 @@ public class AgregarVendedor extends javax.swing.JInternalFrame {
     private boolean validacion() {
         boolean valido = false;
         if (!jtDni.getText().isEmpty()
+                && !jtDni.getText().equals("0")
                 && !jtNombre.getText().isEmpty()
                 && !jtApellido.getText().isEmpty()
                 && !jtTel.getText().isEmpty()
@@ -260,8 +259,11 @@ public class AgregarVendedor extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jtTelKeyReleased
 
     private void jtPass2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtPass2KeyReleased
-if(jtPass.getText().equals(jtPass2.getText()))
-{jbAgregar.setEnabled(true);}
+if(jtPass.getText().equals(jtPass2.getText())){
+    jbAgregar.setEnabled(true);
+}else{
+     jbAgregar.setEnabled(false);
+}
     }//GEN-LAST:event_jtPass2KeyReleased
     private void agregarUsuario() {
         String dni, nombre, apellido, tel, domicilio, email, usuario, pass, salt;
@@ -313,8 +315,8 @@ if(jtPass.getText().equals(jtPass2.getText()))
     private javax.swing.JTextField jtDomicilio;
     private javax.swing.JTextField jtEmail;
     private javax.swing.JTextField jtNombre;
-    private javax.swing.JTextField jtPass;
-    private javax.swing.JTextField jtPass2;
+    private javax.swing.JPasswordField jtPass;
+    private javax.swing.JPasswordField jtPass2;
     private javax.swing.JTextField jtTel;
     private javax.swing.JTextField jtUsuario;
     // End of variables declaration//GEN-END:variables

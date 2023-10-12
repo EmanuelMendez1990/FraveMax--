@@ -14,11 +14,9 @@ public class AgregarCliente extends javax.swing.JInternalFrame {
     private static UsuarioData ud = new UsuarioData();
 
     public AgregarCliente() {
-        initComponents(); 
+        initComponents();
 
     }
-
-   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -173,12 +171,12 @@ public class AgregarCliente extends javax.swing.JInternalFrame {
     private boolean validacion() {
         boolean valido = false;
         if (!jtDni.getText().isEmpty()
+                && !jtDni.getText().equals("0")
                 && !jtNombre.getText().isEmpty()
                 && !jtApellido.getText().isEmpty()
                 && !jtTel.getText().isEmpty()
                 && !jtDomicilio.getText().isEmpty()
-                && !jtEmail.getText().isEmpty())
-                 {
+                && !jtEmail.getText().isEmpty()) {
             valido = true;
         }
         return valido;
@@ -209,7 +207,7 @@ public class AgregarCliente extends javax.swing.JInternalFrame {
         tel = jtTel.getText();
         domicilio = jtDomicilio.getText();
         email = jtEmail.getText();
-        usuario =dni;
+        usuario = dni;
         pass = dni;
 //    public Usuario(Rol rol, int dni, String nombre, String apellido, Date fechaIngreso, String usuario, String pass, String salt, String tel, String domicilio, String email) {
 
@@ -222,6 +220,7 @@ public class AgregarCliente extends javax.swing.JInternalFrame {
 
             Usuario nuevo = new Usuario(rol, Integer.parseInt(dni), nombre, apellido, date2, usuario, pass, salt, tel, domicilio, email);
             ud.agregarUsuario(nuevo);
+
 //            Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(date.toString());
 //                  java.sql.Date sqlDate2 = new java.sql.Date(date2.getDate());
 //        System.out.println(sqlDate2);
