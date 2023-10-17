@@ -174,6 +174,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jmAdministrarProd.setText("Administrar");
 
         jMenuItem6.setText("Cargar");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
         jmAdministrarProd.add(jMenuItem6);
 
         jMenuItem7.setText("Editar");
@@ -276,6 +281,15 @@ Escritorio.removeAll();
         l.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jMenuItem10ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        AgregarProducto f = new AgregarProducto();
+        f.setVisible(true);
+        Escritorio.add(f);
+        Escritorio.moveToFront(f);
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     /**
      * @param args the command line arguments
