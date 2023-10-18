@@ -148,7 +148,7 @@ ArrayList<Producto> productos = new ArrayList<>();
             System.out.println(ps);
             ResultSet rs = ps.executeQuery();
 
-           if (rs.next()) {
+           while (rs.next()) {
                 
                 Producto producto = new Producto();
                 producto.setIdProducto(rs.getInt("idProducto"));
