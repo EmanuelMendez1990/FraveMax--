@@ -53,7 +53,6 @@ public class ProductoData {
             ps.setString(3, producto.getDescripcion());
             ps.setString(4, producto.getCategoria().toString());
             ps.setDouble(5, producto.getPrecio());
-
             ps.setBoolean(6, producto.isEstado());
             ps.setInt(7, producto.getEnOferta());
             ps.setInt(8, producto.getIdProducto());
