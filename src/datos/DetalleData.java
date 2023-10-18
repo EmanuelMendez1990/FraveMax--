@@ -29,7 +29,7 @@ public class DetalleData {
     }
 
     public void agregarDetalle(DetalleVenta venta) {
-        String sql = "INSERT INTO detalle (idVenta,idProducto,cantidad,total,entregado) VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO detalle (idVenta,idProducto,cantidad,total,entregado,detalle) VALUES (?,?,?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, venta.getIdVenta());
@@ -37,6 +37,7 @@ public class DetalleData {
             ps.setInt(3, venta.getCantidad());
             ps.setDouble(4, venta.getTotal());
             ps.setBoolean(5, venta.isEntregado());
+            ps.setString (6,venta.getDetalle());
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
 
