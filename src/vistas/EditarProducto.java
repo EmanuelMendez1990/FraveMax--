@@ -271,7 +271,7 @@ private void crearColumnas() {
     private void jbAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregarActionPerformed
 
         if (validacion()) {
-            agregarProducto();
+            editarProducto();
         } else {
             JOptionPane.showMessageDialog(rootPane, "Faltan completar datos");
         }
@@ -279,7 +279,6 @@ private void crearColumnas() {
     private boolean validacion() {
         boolean valido = false;
         if (!jtNombre.getText().isEmpty()
-                && !jtNombre.getText().equals("0")
                 && !jtDescripcion.getText().isEmpty()
                 && !jtStock.getText().isEmpty()
                 && !jtPrecio.getText().isEmpty()
@@ -381,12 +380,13 @@ if (lista != null) {
     }
     
     
-    private void agregarProducto() {
+    private void editarProducto() {
 //        public Producto(int stock, String nombre, String descripcion, Categoria categoria, double precio, int enOferta, boolean estado) {
         String nombre, descripcion, precioString, enOfertaString, stockString;
         Categoria cat;
         Double precio;
-        int stock, enOferta;
+        int idProducto, stock, enOferta;
+        idProducto = Integer.parseInt(jtProductos.getValueAt(jtProductos.getSelectedRow(),0)+"");
         boolean estado = jcheckActivo.isSelected();
         cat = Categoria.valueOf(jcbCategoria.getSelectedItem() + "");
         nombre = jtNombre.getText();
@@ -397,8 +397,16 @@ if (lista != null) {
         enOferta = Integer.parseInt(enOfertaString);
         stockString = jtStock.getText();
         stock = Integer.parseInt(stockString);
-        Producto nuevo = new Producto(stock, nombre, descripcion, cat, precio, enOferta, estado);
-        pd.agregarProducto(nuevo);
+        Producto nuevo = new Producto(idProducto, stock, nombre, descripcion, cat, precio, enOferta, estado);
+        pd.modificarProducto(nuevo);
+        jtProductos.setValueAt(nombre, jtProductos.getSelectedRow(),1);
+        jtProductos.setValueAt(descripcion, jtProductos.getSelectedRow(),2);
+        jtProductos.setValueAt(precio, jtProductos.getSelectedRow(),3);
+        jtProductos.setValueAt(stock, jtProductos.getSelectedRow(),4);
+        jtProductos.setValueAt(enOferta, jtProductos.getSelectedRow(),5);
+        jtProductos.setValueAt(estado, jtProductos.getSelectedRow(),6);
+        jtProductos.setValueAt(cat, jtProductos.getSelectedRow(),7);
+        
         jtNombre.setText("");
         jtDescripcion.setText("");
         jtPrecio.setText("");
