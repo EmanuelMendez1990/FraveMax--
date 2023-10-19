@@ -15,8 +15,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form MenuPrincipal
      */
+    
+    public static int idVendedor;
     public MenuPrincipal(Usuario usu) {
         initComponents();
+        idVendedor = usu.getIdUsuario();
         if (usu.getRol()==Rol.VENDEDOR ||usu.getRol()==Rol.CLIENTE ){
             jmVendedor.setEnabled(false);
             jmAdministrarProd.setEnabled(false);
@@ -326,6 +329,14 @@ Escritorio.removeAll();
         Escritorio.moveToFront(f);
     }//GEN-LAST:event_jMenuItem12ActionPerformed
 
+    public void elegirCliente(){
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        ElegirCliente f = new ElegirCliente();
+        f.setVisible(true);
+        Escritorio.add(f);
+        Escritorio.moveToFront(f);
+    }
     /**
      * @param args the command line arguments
      */
@@ -362,7 +373,7 @@ Escritorio.removeAll();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane Escritorio;
+    public javax.swing.JDesktopPane Escritorio;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu11;
     private javax.swing.JMenu jMenu12;

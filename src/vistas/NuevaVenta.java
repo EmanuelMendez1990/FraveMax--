@@ -7,7 +7,9 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import datos.*;
+import java.util.HashMap;
 import java.util.List;
+import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -29,6 +31,8 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
         initComponents();
         crearColumnas();
         crearColumnas2();
+        jbBorrar.setEnabled(false);
+        jbAgregar.setEnabled(false);
 
     }
 
@@ -74,6 +78,7 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
         jtVenta = new javax.swing.JTable();
         jbAgregar = new javax.swing.JButton();
         jbBorrar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         jtTel.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -152,6 +157,18 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
         });
 
         jbBorrar.setText("Borrar");
+        jbBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBorrarActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Facturar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -183,15 +200,17 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 515, Short.MAX_VALUE)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 518, Short.MAX_VALUE)
                             .addComponent(jScrollPane1))))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(118, 118, 118)
-                .addComponent(jbAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jbBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(120, 120, 120))
+                .addGap(26, 26, 26)
+                .addComponent(jbAgregar)
+                .addGap(62, 62, 62)
+                .addComponent(jbBorrar)
+                .addGap(89, 89, 89)
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -211,10 +230,11 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(24, 24, 24)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbAgregar)
-                    .addComponent(jbBorrar))
+                    .addComponent(jbBorrar)
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -254,12 +274,15 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
 
         jtNombre.setText(jtProductos.getValueAt(id, 1) + "");
         jtDescripcion.setText(jtProductos.getValueAt(id, 2) + "");
-
-
+        if(id>=0)jbAgregar.setEnabled(true);
     }//GEN-LAST:event_jtProductosMouseClicked
 
     private void jtVentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtVentaMouseClicked
-
+        int fila =  jtVenta.getSelectedRow();
+        System.out.println("Fila elegida "+fila);
+        if(jtVenta.getSelectedRow()>=0){
+            jbBorrar.setEnabled(true);
+        }
     }//GEN-LAST:event_jtVentaMouseClicked
 
     private void jbAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregarActionPerformed
@@ -279,13 +302,40 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
         md2.addRow(new Object[]{jtProductos.getValueAt(jtProductos.getSelectedRow(), 0),
     jtProductos.getValueAt(jtProductos.getSelectedRow(), 1),
     jtProductos.getValueAt(jtProductos.getSelectedRow(), 3),
-     jtProductos.getValueAt(jtProductos.getSelectedRow(), 3),
      cant,
      total
    
             });
+        jbAgregar.setEnabled(false);
 
     }//GEN-LAST:event_jbAgregarActionPerformed
+
+    private void jbBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBorrarActionPerformed
+        int fila =  jtVenta.getSelectedRow();
+        System.out.println("Fila elegida "+fila);
+        md2.removeRow(fila);
+        jbBorrar.setEnabled(false);
+    }//GEN-LAST:event_jbBorrarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        //id y cantidad pasamos a la otra ventana      
+        HashMap<Integer,Integer> lista = new HashMap<>();
+        int f = jtVenta.getRowCount() - 1;
+        for (; f >= 0; f--) {
+            int id = Integer.parseInt(jtVenta.getValueAt(f, 0)+"");
+            int cantidad = Integer.parseInt(jtVenta.getValueAt(f, 3)+"");
+            lista.put(id,cantidad);
+        }
+        
+        
+        JDesktopPane desktopPane = getDesktopPane();
+        ElegirCliente f1 = new ElegirCliente(lista);
+        desktopPane.add(f1);//add f1 to desktop pane
+        f1.setVisible(true);
+        this.dispose();
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
     private void borrarFilas() {
         int f = jtProductos.getRowCount() - 1;
         for (; f >= 0; f--) {
@@ -295,6 +345,7 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
