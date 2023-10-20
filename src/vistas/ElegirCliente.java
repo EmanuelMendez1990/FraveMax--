@@ -208,6 +208,7 @@ public class ElegirCliente extends javax.swing.JInternalFrame {
     private void jbFacturarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbFacturarActionPerformed
         ProductoData pd = new ProductoData();
         VentaData ventadata = new VentaData();
+        DetalleData detalledata = new DetalleData();
         Double total = 0.0;
         if (validacion()) {
             System.out.println("Facturado");
@@ -216,7 +217,7 @@ public class ElegirCliente extends javax.swing.JInternalFrame {
                 Producto p = pd.listarProducto(set.getKey());
                 System.out.println(" Nombre:  " + p.getNombre() + "  Cantidad:  "
                         + set.getValue());
-                total = p.getPrecio() * set.getValue();
+                total += p.getPrecio() * set.getValue();
             }
             System.out.println(" Total Compra:  " + total);
             System.out.println("Quien esta comprando: " + usuario.getNombre());
@@ -225,17 +226,29 @@ public class ElegirCliente extends javax.swing.JInternalFrame {
             int cliente = usuario.getIdUsuario();
 
             try {
-
-                LocalDate date = LocalDate.now();
-               System.out.println("fecha date "+ date);
-                Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(date.toString());
-                System.out.println("Fecha date2: " + date2);
-                java.sql.Date sqlDate2 = new java.sql.Date(date2.getDate());
-                System.out.println(sqlDate2);
-
-                Venta venta = new Venta(vendedor, sqlDate2, total, cliente);
-                ventadata.IngresarVenta(venta);
-            } catch (ParseException ex) {
+                java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
+                Venta venta = new Venta(vendedor, date, total, cliente);
+                Venta ventaConId = ventadata.IngresarVenta(venta);
+                System.out.println("Venta Exitosa.ID: " + ventaConId.getIdVenta());
+                if (ventaConId.getIdVenta() != 0) {
+                    for (HashMap.Entry<Integer, Integer> set : compra.entrySet()) {
+                        Producto p = pd.listarProducto(set.getKey());
+//                        System.out.println(" Nombre:  " + p.getNombre() + "  Cantidad:  "
+//                                + set.getValue());
+//                        int idVenta, int idProducto, int cantidad, double total, boolean entregado,String detalle
+                        total = p.getPrecio() * set.getValue();
+                            DetalleVenta detalleVenta = new DetalleVenta(
+                                ventaConId.getIdVenta(),
+                                p.getIdProducto(),
+                                set.getValue(),
+                                total,
+                                true,
+                                "Venta"
+                            );
+                           detalledata.agregarDetalle(detalleVenta);
+                    }
+                }
+            } catch (Exception ex) {
 //            Logger.getLogger(FraveMax.class.getName()).log(Level.SEVERE, null, ex);
                 System.out.println(" Error: " + ex.getMessage());
             }

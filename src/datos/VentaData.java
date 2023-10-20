@@ -6,6 +6,7 @@ package datos;
 
 import entidades.*;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -21,12 +22,13 @@ public class VentaData {
         con = Conexion.getConexion();
     }
 
-    public void IngresarVenta(Venta venta) {
+    public Venta IngresarVenta(Venta venta) {
         String sql = "INSERT INTO venta (idUsuario,fecha,total,idCliente) VALUES (?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, venta.getIdUsuario());
-            ps.setString(2, venta.getFecha().toString());
+            java.sql.Date fechaActual = new java.sql.Date(System.currentTimeMillis());
+            ps.setDate(2, fechaActual);
             ps.setDouble(3, venta.getTotal());
             ps.setInt(4, venta.getIdCliente());
             ps.executeUpdate();
@@ -41,6 +43,7 @@ public class VentaData {
             JOptionPane.showMessageDialog(null, "Error al guardar Venta: " + ex.getMessage());
 
         }
+        return venta;
     }
 
     public ArrayList<Venta> buscarVentaPorVendedor(int idUsuario) {

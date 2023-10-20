@@ -20,7 +20,8 @@ public class UsuarioData {
             ps.setInt(2, user.getDni());
             ps.setString(3, user.getNombre());
             ps.setString(4, user.getApellido());
-            ps.setString(5, user.getFechaIngreso().toString());
+            java.sql.Date fechaActual = new java.sql.Date(System.currentTimeMillis());
+            ps.setDate(5, fechaActual);
             ps.setString(6, user.getUsuario());
             ps.setString(7, user.getPass());
             ps.setString(8, user.getSalt());
@@ -35,7 +36,7 @@ public class UsuarioData {
                 JOptionPane.showMessageDialog(null, "Usuario Guardado");
             }
             ps.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Error al guardar Usuario: " + ex.getMessage());
 
         }
