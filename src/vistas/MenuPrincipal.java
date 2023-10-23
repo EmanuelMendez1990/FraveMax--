@@ -74,6 +74,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenu19 = new javax.swing.JMenu();
+        jMenuItem13 = new javax.swing.JMenuItem();
+        jMenuItem14 = new javax.swing.JMenuItem();
+        jMenuItem15 = new javax.swing.JMenuItem();
         jMenu21 = new javax.swing.JMenu();
         jMenu22 = new javax.swing.JMenu();
 
@@ -224,6 +227,21 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu8.add(jmAnular);
 
         jMenu19.setText("Consultas");
+
+        jMenuItem13.setText("Por Cliente");
+        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem13ActionPerformed(evt);
+            }
+        });
+        jMenu19.add(jMenuItem13);
+
+        jMenuItem14.setText("jMenuItem14");
+        jMenu19.add(jMenuItem14);
+
+        jMenuItem15.setText("jMenuItem15");
+        jMenu19.add(jMenuItem15);
+
         jMenu8.add(jMenu19);
 
         jMenuBar1.add(jMenu8);
@@ -329,6 +347,10 @@ Escritorio.removeAll();
         Escritorio.moveToFront(f);
     }//GEN-LAST:event_jMenuItem12ActionPerformed
 
+    private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem13ActionPerformed
+
     public void elegirCliente(){
         Escritorio.removeAll();
         Escritorio.repaint();
@@ -397,6 +419,9 @@ Escritorio.removeAll();
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
+    private javax.swing.JMenuItem jMenuItem13;
+    private javax.swing.JMenuItem jMenuItem14;
+    private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
