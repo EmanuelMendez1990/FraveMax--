@@ -145,4 +145,28 @@ public ArrayList<Venta> buscarVentaPorCliente(int idCliente) {
         }
         return lista;
     }
+     public ArrayList<Venta> buscarVentaPorFechas(Date desde,Date hasta) {
+        ArrayList<Venta> lista = new ArrayList<>();
+        String sql = "SELECT * FROM venta WHERE fecha BETWEEN '" + desde + "' AND '" + hasta+"'";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Venta venta = new Venta();
+                venta.setIdVenta(rs.getInt("idVenta"));
+                venta.setIdUsuario(rs.getInt("idUsuario"));
+                venta.setFecha(rs.getDate("fecha"));
+                venta.setTotal(rs.getDouble("total"));
+                venta.setIdCliente(rs.getInt("idCliente"));
+                lista.add(venta);
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "ERROR " + ex.getMessage());
+
+        }
+        return lista;
+    }
 }
