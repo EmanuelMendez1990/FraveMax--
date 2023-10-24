@@ -81,7 +81,7 @@ public ArrayList<DetalleVenta> buscarDetallePorVenta(int idVenta){
         ArrayList<Usuario> lista = new ArrayList<>();
         String sql = "SELECT * FROM usuario\n"
                 + "JOIN venta\n"
-                + "ON usuario.idUsuario = venta.idUsuario\n"
+                + "ON usuario.idUsuario = venta.idCliente\n"
                 + "JOIN detalle \n"
                 + "ON detalle.idVenta = venta.idVenta\n"
                 + "WHERE detalle.idProducto = " + idProducto;

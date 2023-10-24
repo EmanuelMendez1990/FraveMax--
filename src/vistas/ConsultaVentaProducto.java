@@ -229,7 +229,9 @@ private static DetalleData dd = new DetalleData();
         
         ArrayList<Usuario> lista = new ArrayList<>();
         lista=dd.buscarDetallePorProducto(id);
-//        borrarFilasClientes();
+        if(jtCliente.getRowCount()>0){
+             borrarFilasClientes();
+        }   
         for (Usuario u:lista) {
             md2.addRow(new Object[]{u.getIdUsuario(),u.getNombre(),u.getApellido(),u.getDni()});
         }
