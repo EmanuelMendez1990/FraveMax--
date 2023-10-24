@@ -7,27 +7,45 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import datos.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class ConsultaCliente extends javax.swing.JInternalFrame {
 
     private static UsuarioData ud = new UsuarioData();
     private static HashMap<Integer, Integer> compra;
     private static Usuario cliente;
+    private static VentaData vd = new VentaData();
+    private static DetalleData dd = new DetalleData();
+    private DefaultTableModel md2 = new DefaultTableModel() {
+        public boolean isCellEditable(int f, int c) {
+            return false;
+        }
+    };
 
     public ConsultaCliente() {
         initComponents();
-        jbFacturar.setEnabled(false);
+        crearColumnas2();
         jbBuscar.setEnabled(false);
     }
 
     public ConsultaCliente(HashMap<Integer, Integer> compra) {
         initComponents();
-        jbFacturar.setEnabled(false);
+
         jbBuscar.setEnabled(false);
         this.compra = compra;
+    }
+
+    private void crearColumnas2() {
+        md2.addColumn("IdVenta");
+        md2.addColumn("Vendedor");
+        md2.addColumn("Fecha");
+        md2.addColumn("Total");
+
+        jtVenta.setModel(md2);
     }
 
     /**
@@ -57,7 +75,6 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
         jtDomicilio = new javax.swing.JTextField();
         jtEmail = new javax.swing.JTextField();
         jbBuscar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jtVenta = new javax.swing.JTable();
 
@@ -121,13 +138,6 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton1.setText("Atras");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         jtVenta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -139,6 +149,11 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jtVenta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtVentaMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(jtVenta);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -182,9 +197,7 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
                                     .addComponent(jtDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(92, 92, 92)
+                        .addGap(190, 190, 190)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
@@ -194,12 +207,8 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButton1)))
-                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -228,7 +237,8 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
                             .addComponent(jLabel7)
                             .addComponent(jtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(219, 219, 219))
         );
 
         pack();
@@ -267,6 +277,7 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
         cliente = ud.listarUsuario(Integer.parseInt(jtDni.getText()));
+        ArrayList<Venta> lista = new ArrayList<>();
         if (cliente.getDni() != 0) {
             jtDni.setText(cliente.getDni() + "");
             jtNombre.setText(cliente.getNombre() + "");
@@ -274,7 +285,16 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
             jtTel.setText(cliente.getTel() + "");
             jtDomicilio.setText(cliente.getDomicilio() + "");
             jtEmail.setText(cliente.getEmail() + "");
-            jbFacturar.setEnabled(true);
+            lista = vd.buscarVentaPorCliente(cliente.getIdUsuario());
+            if (!lista.isEmpty()) {
+                for (Venta v : lista) {
+                    Usuario vendedor = ud.listarUsuarioPorId(v.getIdUsuario());
+                    Usuario cliente = ud.listarUsuarioPorId(v.getIdCliente());
+                    System.out.println("hoola: "+v.getTotal());
+                    md2.addRow(new Object[]{v.getIdVenta(), vendedor.getNombre() + " " + vendedor.getApellido(), v.getFecha(), v.getTotal()});
+                }
+            }
+
         } else {
             jtDni.setText("");
             jtNombre.setText("");
@@ -286,14 +306,27 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jbBuscarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jtVentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtVentaMouseClicked
+        int indice = jtVenta.getSelectedRow();
+        int id = Integer.parseInt(jtVenta.getValueAt(indice, 0) + "");
+        System.out.println(id);
+        ArrayList<DetalleVenta> lista = dd.buscarDetallePorVenta(id);
+        System.out.println("lista"+lista);
+        Venta venta = vd.buscarVentaPorId(id);
+        int vendedorid = venta.getIdUsuario();
+        Usuario vendedor = ud.listarUsuarioPorId(vendedorid);
+        Usuario cliente = ud.listarUsuarioPorId(venta.getIdCliente());
+        HashMap<Integer, Integer> compra = new HashMap<>();
+        for (DetalleVenta dv : lista) {
+            compra.put(dv.getIdProducto(), dv.getCantidad());
+            System.out.println("compra" +dv.getIdProducto());
+        }
         JDesktopPane desktopPane = getDesktopPane();
-        NuevaVenta f1 = new NuevaVenta(compra);
+        VisualizarVenta f1 = new VisualizarVenta(compra,cliente,vendedor);
 
         desktopPane.add(f1);//add f1 to desktop pane
         f1.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jtVentaMouseClicked
     private void editarUsuario() {
         String dni, nombre, apellido, tel, domicilio, email, cliente, pass, salt;
         int clientebuscado = Integer.parseInt(jtDni.getText());
@@ -330,7 +363,6 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

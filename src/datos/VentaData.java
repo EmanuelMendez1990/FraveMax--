@@ -45,7 +45,30 @@ public class VentaData {
         }
         return venta;
     }
+public ArrayList<Venta> buscarVentaPorCliente(int idCliente) {
+        ArrayList<Venta> lista = new ArrayList<>();
+        String sql = "SELECT * FROM venta WHERE idCliente = " + idCliente;
 
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Venta venta = new Venta();
+                venta.setIdVenta(rs.getInt("idVenta"));
+                venta.setIdUsuario(rs.getInt("idUsuario"));
+                venta.setFecha(rs.getDate("fecha"));
+                venta.setTotal(rs.getDouble("total"));
+                venta.setIdCliente(rs.getInt("idCliente"));
+                lista.add(venta);
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "ERROR " + ex.getMessage());
+
+        }
+        return lista;
+    }
     public ArrayList<Venta> buscarVentaPorVendedor(int idUsuario) {
         ArrayList<Venta> lista = new ArrayList<>();
         String sql = "SELECT * FROM venta WHERE idUsuario = " + idUsuario;
@@ -71,29 +94,31 @@ public class VentaData {
         return lista;
     }
     
-    public ArrayList<Venta> buscarVentaPorCliente(int idCliente) {
-        ArrayList<Venta> lista = new ArrayList<>();
-        String sql = "SELECT * FROM venta WHERE idCliente = " + idCliente;
+   
 
+    public Venta buscarVentaPorId(int id) {
+        
+        String sql = "SELECT * FROM venta WHERE idVenta = " + id;
+ Venta venta = new Venta();
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                Venta venta = new Venta();
+               
                 venta.setIdVenta(rs.getInt("idVenta"));
                 venta.setIdUsuario(rs.getInt("idUsuario"));
                 venta.setFecha(rs.getDate("fecha"));
                 venta.setTotal(rs.getDouble("total"));
                 venta.setIdCliente(rs.getInt("idCliente"));
-                lista.add(venta);
+                
             }
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "ERROR " + ex.getMessage());
 
         }
-        return lista;
+        return venta;
     }
     
     public ArrayList<Venta> buscarVentaPorFecha(Date fecha) {

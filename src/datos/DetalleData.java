@@ -51,6 +51,31 @@ public class DetalleData {
         }
 
     }
+public ArrayList<DetalleVenta> buscarDetallePorVenta(int idVenta){
+        ArrayList<DetalleVenta> lista = new ArrayList<>();
+        String sql="SELECT * FROM detalle JOIN venta ON detalle.idVenta = venta.idVenta WHERE detalle.idVenta="+idVenta;
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            
+            ResultSet rs = ps.executeQuery();
+               while (rs.next()) {
+                   DetalleVenta detalle =new DetalleVenta();
+                   detalle.setIdDetalle(rs.getInt("idDetalle"));
+                   detalle.setIdVenta(rs.getInt("idVenta"));
+                   detalle.setIdProducto(rs.getInt("idProducto"));
+                   detalle.setCantidad(rs.getInt("cantidad"));
+                   detalle.setTotal(rs.getDouble("total"));
+                   detalle.setEntregado(rs.getBoolean("entregado"));
+                   detalle.setDetalle(rs.getString("detalle"));
+                   lista.add(detalle);
+               }
+            
+            } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "ERROR " + ex.getMessage());
+
+        }
+        return lista;
+}
 
     public ArrayList<Usuario> buscarDetallePorProducto(int idProducto) {
         ArrayList<Usuario> lista = new ArrayList<>();

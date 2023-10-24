@@ -236,7 +236,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenu19.add(jMenuItem13);
 
-        jMenuItem14.setText("jMenuItem14");
+        jMenuItem14.setText("Por Producto");
+        jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem14ActionPerformed(evt);
+            }
+        });
         jMenu19.add(jMenuItem14);
 
         jMenuItem15.setText("jMenuItem15");
@@ -348,8 +353,24 @@ Escritorio.removeAll();
     }//GEN-LAST:event_jMenuItem12ActionPerformed
 
     private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
-        // TODO add your handling code here:
+Escritorio.removeAll();
+        Escritorio.repaint();
+        ConsultaCliente f = new ConsultaCliente();
+        f.setVisible(true);
+        Escritorio.add(f);
+        Escritorio.moveToFront(f);
+
     }//GEN-LAST:event_jMenuItem13ActionPerformed
+
+    private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
+Escritorio.removeAll();
+        Escritorio.repaint();
+        ConsultaVentaProducto f = new ConsultaVentaProducto();
+        f.setVisible(true);
+        Escritorio.add(f);
+        Escritorio.moveToFront(f);
+
+    }//GEN-LAST:event_jMenuItem14ActionPerformed
 
     public void elegirCliente(){
         Escritorio.removeAll();

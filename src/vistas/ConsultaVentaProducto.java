@@ -7,38 +7,53 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import datos.*;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class ConsultarProducto extends javax.swing.JInternalFrame {
-
+public class ConsultaVentaProducto extends javax.swing.JInternalFrame {
+private static DetalleData dd = new DetalleData();
     private static ProductoData pd = new ProductoData();
-     private DefaultTableModel md = new DefaultTableModel() {
+    private DefaultTableModel md = new DefaultTableModel() {
         public boolean isCellEditable(int f, int c) {
             return false;
         }
     };
 
-    public ConsultarProducto() {
+    private DefaultTableModel md2 = new DefaultTableModel() {
+        public boolean isCellEditable(int f, int c) {
+            return false;
+        }
+    };
+
+    public ConsultaVentaProducto() {
         initComponents();
         crearColumnas();
-        
+        crearColumnas2();
+
     }
-private void crearColumnas() {
+
+    private void crearColumnas() {
         md.addColumn("ID");
         md.addColumn("Nombre");
         md.addColumn("Descripcion");
         md.addColumn("Precio");
         md.addColumn("Stock");
         md.addColumn("Descuento");
-    
-         md.addColumn("Estado");
-             md.addColumn("Categoria");
+        md.addColumn("Estado");
+        md.addColumn("Categoria");
         jtProductos.setModel(md);
     }
-    
-    
+
+    private void crearColumnas2() {
+        md2.addColumn("ID");
+        md2.addColumn("Nombre");
+        md2.addColumn("Apellido");
+        md2.addColumn("Dni");
+
+        jtCliente.setModel(md2);
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -55,6 +70,8 @@ private void crearColumnas() {
         jbBuscar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jtDescripcion = new javax.swing.JTextArea();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jtCliente = new javax.swing.JTable();
 
         jtTel.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -107,14 +124,30 @@ private void crearColumnas() {
         jtDescripcion.setRows(5);
         jScrollPane2.setViewportView(jtDescripcion);
 
+        jtCliente.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(jtCliente);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane3))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(122, 122, 122)
@@ -155,12 +188,14 @@ private void crearColumnas() {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(24, 24, 24)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(207, Short.MAX_VALUE))
+                .addGap(62, 62, 62)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-   
+
     private void jtNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtNombreKeyReleased
 
     }//GEN-LAST:event_jtNombreKeyReleased
@@ -175,35 +210,44 @@ private void crearColumnas() {
     }//GEN-LAST:event_jtTelKeyReleased
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
-List<Producto> lista = pd.buscarProductos(jtNombre.getText());
+        List<Producto> lista = pd.buscarProductos(jtNombre.getText());
 
-if (lista != null) {
+        if (lista != null) {
             borrarFilas();
 
             for (Producto a : lista) {
-                md.addRow(new Object[]{a.getIdProducto(), a.getNombre(), a.getDescripcion(), a.getPrecio(),a.getStock(),a.getEnOferta(),a.isEstado(),a.getCategoria()});
+                md.addRow(new Object[]{a.getIdProducto(), a.getNombre(), a.getDescripcion(), a.getPrecio(), a.getStock(), a.getEnOferta(), a.isEstado(), a.getCategoria()});
             }
         }
 
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jtProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtProductosMouseClicked
- int id =jtProductos.getSelectedRow();
-
-        jtNombre.setText(jtProductos.getValueAt(id, 1)+"");
-        jtDescripcion.setText(jtProductos.getValueAt(id, 2)+"");
+        int indice = jtProductos.getSelectedRow();
+        int id=Integer.parseInt(jtProductos.getValueAt(indice, 0)+"");
+        System.out.println("id "+id);
+        
+        ArrayList<Usuario> lista = new ArrayList<>();
+        lista=dd.buscarDetallePorProducto(id);
+//        borrarFilasClientes();
+        for (Usuario u:lista) {
+            md2.addRow(new Object[]{u.getIdUsuario(),u.getNombre(),u.getApellido(),u.getDni()});
+        }
         
 
     }//GEN-LAST:event_jtProductosMouseClicked
-  private void borrarFilas() {
+    private void borrarFilas() {
         int f = jtProductos.getRowCount() - 1;
         for (; f >= 0; f--) {
             md.removeRow(f);
         }
     }
-    
-    
-    
+ private void borrarFilasClientes() {
+        int f = jtCliente.getRowCount() - 1;
+        for (; f >= 0; f--) {
+            md2.removeRow(f);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -212,7 +256,9 @@ if (lista != null) {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JButton jbBuscar;
+    private javax.swing.JTable jtCliente;
     private javax.swing.JTextArea jtDescripcion;
     private javax.swing.JTextField jtNombre;
     private javax.swing.JTable jtProductos;
