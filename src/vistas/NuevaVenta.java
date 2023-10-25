@@ -33,6 +33,7 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
         crearColumnas2();
         jbBorrar.setEnabled(false);
         jbAgregar.setEnabled(false);
+        jbFacturar.setEnabled(false);
 
     }
 
@@ -85,7 +86,7 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
         jtVenta = new javax.swing.JTable();
         jbAgregar = new javax.swing.JButton();
         jbBorrar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        jbFacturar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jlTotal = new javax.swing.JLabel();
@@ -173,18 +174,16 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton1.setText("Facturar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jbFacturar.setText("Siguiente");
+        jbFacturar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jbFacturarActionPerformed(evt);
             }
         });
 
         jLabel4.setText("jLabel4");
 
         jLabel5.setText("Total: ");
-
-        jlTotal.setText("jLabel6");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -230,7 +229,7 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
                         .addComponent(jLabel4))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(27, 27, 27)
-                        .addComponent(jButton1)
+                        .addComponent(jbFacturar)
                         .addGap(30, 30, 30)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -261,7 +260,7 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jbAgregar)
                             .addComponent(jbBorrar)
-                            .addComponent(jButton1)
+                            .addComponent(jbFacturar)
                             .addComponent(jLabel5)
                             .addComponent(jlTotal))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -358,6 +357,7 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
 
         });
         jbAgregar.setEnabled(false);
+        jbFacturar.setEnabled(true);
 double tot=0.0;
  int f = jtVenta.getRowCount() - 1;
         System.out.println(f);
@@ -373,9 +373,18 @@ double tot=0.0;
         System.out.println("Fila elegida " + fila);
         md2.removeRow(fila);
         jbBorrar.setEnabled(false);
+        if(jtVenta.getRowCount()==0)jbFacturar.setEnabled(false);
+        //volvemos a calcular el total:
+        double tot=0.0;
+        int f = jtVenta.getRowCount() - 1;
+        System.out.println(f);
+        for (; f >= 0; f--) {
+            tot+=Double.parseDouble(jtVenta.getValueAt(f, 4)+"");
+        }
+        jlTotal.setText(tot+"");
     }//GEN-LAST:event_jbBorrarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jbFacturarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbFacturarActionPerformed
         //id y cantidad pasamos a la otra ventana      
         HashMap<Integer, Integer> lista = new HashMap<>();
         int f = jtVenta.getRowCount() - 1;
@@ -392,7 +401,7 @@ double tot=0.0;
         this.dispose();
 
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jbFacturarActionPerformed
     private void borrarFilas() {
         int f = jtProductos.getRowCount() - 1;
         for (; f >= 0; f--) {
@@ -402,7 +411,6 @@ double tot=0.0;
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -415,6 +423,7 @@ double tot=0.0;
     private javax.swing.JButton jbAgregar;
     private javax.swing.JButton jbBorrar;
     private javax.swing.JButton jbBuscar;
+    private javax.swing.JButton jbFacturar;
     private javax.swing.JLabel jlTotal;
     private javax.swing.JTextArea jtDescripcion;
     private javax.swing.JTextField jtNombre;
