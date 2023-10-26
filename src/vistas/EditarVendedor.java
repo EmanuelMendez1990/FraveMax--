@@ -58,6 +58,8 @@ public class EditarVendedor extends javax.swing.JInternalFrame {
         jtPass2 = new javax.swing.JTextField();
         jbBuscar = new javax.swing.JButton();
 
+        setClosable(true);
+
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("Editar Empleado");
 

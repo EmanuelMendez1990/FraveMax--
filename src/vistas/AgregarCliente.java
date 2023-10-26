@@ -42,6 +42,8 @@ public class AgregarCliente extends javax.swing.JInternalFrame {
         jtEmail = new javax.swing.JTextField();
         jbAgregar = new javax.swing.JButton();
 
+        setClosable(true);
+
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("Agregar Cliente");
 

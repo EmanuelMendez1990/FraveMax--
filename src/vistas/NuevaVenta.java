@@ -99,8 +99,10 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
 
         jLabel8.setText("Activo");
 
+        setClosable(true);
+
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel1.setText("Consultar Producto");
+        jLabel1.setText("Nueva Venta");
 
         jLabel2.setText("Nombre");
 
@@ -283,18 +285,18 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
             Producto p = pd.listarProducto(set.getKey());
             double total = set.getValue() * p.getPrecio();
             md2.addRow(new Object[]{p.getIdProducto(), p.getNombre(), p.getPrecio(), set.getValue(), total});
-            
+
         }
-        
-        double tot=0.0;
- int f = jtVenta.getRowCount() - 1;
+
+        double tot = 0.0;
+        int f = jtVenta.getRowCount() - 1;
         System.out.println(f);
         for (; f >= 0; f--) {
-        tot+=Double.parseDouble(jtVenta.getValueAt(f, 4)+"");
-        
+            tot += Double.parseDouble(jtVenta.getValueAt(f, 4) + "");
+
         }
-        jlTotal.setText(tot+"");
-    
+        jlTotal.setText(tot + "");
+
     }
 
     private void jtTelKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtTelKeyReleased
@@ -321,14 +323,14 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
 
     private void jtProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtProductosMouseClicked
         int id = jtProductos.getSelectedRow();
- int stock=Integer.parseInt(jtProductos.getValueAt(id, 4)+"");
+        int stock = Integer.parseInt(jtProductos.getValueAt(id, 4) + "");
         jtNombre.setText(jtProductos.getValueAt(id, 1) + "");
         jtDescripcion.setText(jtProductos.getValueAt(id, 2) + "");
-        if (id >= 0 && stock >0){
+        if (id >= 0 && stock > 0) {
             jbAgregar.setEnabled(true);
-            
-        }else{
-             jbAgregar.setEnabled(false); 
+
+        } else {
+            jbAgregar.setEnabled(false);
         }
     }//GEN-LAST:event_jtProductosMouseClicked
 
@@ -342,16 +344,16 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
 
     private void jbAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregarActionPerformed
         String cantidad = JOptionPane.showInputDialog("Ingrese la cantidad");
-        
+
         int cant = 0;
-          int id = jtProductos.getSelectedRow();
-        int stock=Integer.parseInt(jtProductos.getValueAt(id, 4)+"");
+        int id = jtProductos.getSelectedRow();
+        int stock = Integer.parseInt(jtProductos.getValueAt(id, 4) + "");
         Double precio, total;
         try {
             cant = Integer.parseInt(cantidad);
-            if (cant>stock) {
-             JOptionPane.showMessageDialog(null, "Stock insuficiente");
-             return;
+            if (cant > stock) {
+                JOptionPane.showMessageDialog(null, "Stock insuficiente");
+                return;
             }
         } catch (Exception ex) {
             cantidad = JOptionPane.showInputDialog("Error. Solo puede ingresar numeros");
@@ -360,6 +362,10 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
         }
         precio = Double.parseDouble(jtProductos.getValueAt(jtProductos.getSelectedRow(), 3) + "");
         total = cant * precio;
+  Producto p = pd.listarProducto(Integer.parseInt(jtProductos.getValueAt(jtProductos.getSelectedRow(), 0) + ""));
+           double descuento = p.getEnOferta();
+        total=total * (1- descuento / 100);
+  
         md2.addRow(new Object[]{jtProductos.getValueAt(jtProductos.getSelectedRow(), 0),
             jtProductos.getValueAt(jtProductos.getSelectedRow(), 1),
             jtProductos.getValueAt(jtProductos.getSelectedRow(), 3),
@@ -369,14 +375,18 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
         });
         jbAgregar.setEnabled(false);
         jbFacturar.setEnabled(true);
-double tot=0.0;
- int f = jtVenta.getRowCount() - 1;
+        double tot = 0.0;
+//        int descuento = 0;
+
+        int f = jtVenta.getRowCount() - 1;
         System.out.println(f);
         for (; f >= 0; f--) {
-        tot+=Double.parseDouble(jtVenta.getValueAt(f, 4)+"");
-        
+            tot += Double.parseDouble(jtVenta.getValueAt(f, 4) + "");
+          
+//            System.out.println(descuento);
+//            tot = cant * precio * (1 - descuento / 100);
         }
-        jlTotal.setText(tot+"");
+        jlTotal.setText(tot + "");
     }//GEN-LAST:event_jbAgregarActionPerformed
 
     private void jbBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBorrarActionPerformed
@@ -384,15 +394,17 @@ double tot=0.0;
         System.out.println("Fila elegida " + fila);
         md2.removeRow(fila);
         jbBorrar.setEnabled(false);
-        if(jtVenta.getRowCount()==0)jbFacturar.setEnabled(false);
+        if (jtVenta.getRowCount() == 0) {
+            jbFacturar.setEnabled(false);
+        }
         //volvemos a calcular el total:
-        double tot=0.0;
+        double tot = 0.0;
         int f = jtVenta.getRowCount() - 1;
         System.out.println(f);
         for (; f >= 0; f--) {
-            tot+=Double.parseDouble(jtVenta.getValueAt(f, 4)+"");
+            tot += Double.parseDouble(jtVenta.getValueAt(f, 4) + "");
         }
-        jlTotal.setText(tot+"");
+        jlTotal.setText(tot + "");
     }//GEN-LAST:event_jbBorrarActionPerformed
 
     private void jbFacturarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbFacturarActionPerformed

@@ -57,6 +57,8 @@ public class AgregarVendedor extends javax.swing.JInternalFrame {
         jtPass = new javax.swing.JPasswordField();
         jtPass2 = new javax.swing.JPasswordField();
 
+        setClosable(true);
+
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("Administrar");
 

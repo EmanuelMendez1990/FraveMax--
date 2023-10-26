@@ -45,6 +45,8 @@ jbAgregar.setEnabled(false);
         jbAgregar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
 
+        setClosable(true);
+
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("Editar Cliente");
 

@@ -64,6 +64,8 @@ private void crearColumnas() {
 
         jLabel8.setText("Activo");
 
+        setClosable(true);
+
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("Consultar Producto");
 

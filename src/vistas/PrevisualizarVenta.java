@@ -24,10 +24,10 @@ public class PrevisualizarVenta extends javax.swing.JInternalFrame {
     private static HashMap<Integer, Integer> compra;
     private static Usuario cliente;
     private static Usuario vendedor;
-    private static VentaData ventadata=new VentaData();
-    private static DetalleData detalledata=new DetalleData();
-   private static ProductoData pd = new ProductoData();
-   
+    private static VentaData ventadata = new VentaData();
+    private static DetalleData detalledata = new DetalleData();
+    private static ProductoData pd = new ProductoData();
+
     private DefaultTableModel md2 = new DefaultTableModel() {
         public boolean isCellEditable(int f, int c) {
             return false;
@@ -65,18 +65,21 @@ public class PrevisualizarVenta extends javax.swing.JInternalFrame {
 
     private void cargarTabla() {
         double total = 0;
+        double totalfinal = 0;
         for (HashMap.Entry<Integer, Integer> set : compra.entrySet()) {
             Producto prod = pd.listarProducto(set.getKey());
+            double descuento = prod.getEnOferta();
+            total = prod.getPrecio() * (1 - descuento / 100);
             md2.addRow(new Object[]{set.getKey(),
                 prod.getNombre(),
                 prod.getPrecio(),
                 set.getValue(),
-                prod.getPrecio() * set.getValue()
+                total * set.getValue()
 
             });
-            total += prod.getPrecio() * set.getValue();
+            totalfinal += (prod.getPrecio() * (1 - descuento / 100)) * set.getValue();
         }
-        jlTotal.setText(total + "");
+        jlTotal.setText(totalfinal + "");
 
     }
 
@@ -114,6 +117,9 @@ public class PrevisualizarVenta extends javax.swing.JInternalFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
+        setClosable(true);
+
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("Datos de la Venta.");
 
         jLabel2.setText("Nombre:");
@@ -122,8 +128,10 @@ public class PrevisualizarVenta extends javax.swing.JInternalFrame {
 
         jlDni.setText("jLabel7");
 
+        jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel4.setText("Datos del Cliente");
 
+        jLabel8.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel8.setText("Productos ");
 
         jtVenta.setModel(new javax.swing.table.DefaultTableModel(
@@ -176,18 +184,13 @@ public class PrevisualizarVenta extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(136, 136, 136)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(202, 202, 202)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(189, 189, 189)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
                         .addGap(62, 62, 62)
                         .addComponent(jLabel3))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(190, 190, 190)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -215,7 +218,10 @@ public class PrevisualizarVenta extends javax.swing.JInternalFrame {
                                         .addComponent(jlTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(22, 22, 22)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(183, 183, 183)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -241,7 +247,7 @@ public class PrevisualizarVenta extends javax.swing.JInternalFrame {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 226, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 212, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(jlNombreVendedor)
@@ -272,7 +278,7 @@ public class PrevisualizarVenta extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
- JDesktopPane desktopPane = getDesktopPane();
+        JDesktopPane desktopPane = getDesktopPane();
         NuevaVenta f1 = new NuevaVenta(compra);
 
         desktopPane.add(f1);//add f1 to desktop pane
@@ -282,13 +288,13 @@ public class PrevisualizarVenta extends javax.swing.JInternalFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         crearVenta();
-        
+
         jButton2.setEnabled(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     public void crearVenta() {
         try {
-            double total=Double.parseDouble(jlTotal.getText());
+            double total = Double.parseDouble(jlTotal.getText());
             java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
             Venta venta = new Venta(vendedor.getIdUsuario(), date, total, cliente.getIdUsuario());
             Venta ventaConId = ventadata.IngresarVenta(venta);
@@ -296,7 +302,9 @@ public class PrevisualizarVenta extends javax.swing.JInternalFrame {
             if (ventaConId.getIdVenta() != 0) {
                 for (HashMap.Entry<Integer, Integer> set : compra.entrySet()) {
                     Producto p = pd.listarProducto(set.getKey());
+
                     total = p.getPrecio() * set.getValue();
+
                     DetalleVenta detalleVenta = new DetalleVenta(
                             ventaConId.getIdVenta(),
                             p.getIdProducto(),
@@ -306,7 +314,7 @@ public class PrevisualizarVenta extends javax.swing.JInternalFrame {
                             "Venta"
                     );
                     detalledata.agregarDetalle(detalleVenta);
-                    p.setStock(p.getStock()-set.getValue());
+                    p.setStock(p.getStock() - set.getValue());
                     pd.modificarProducto(p);
                 }
             }
