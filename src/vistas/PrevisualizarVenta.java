@@ -26,8 +26,8 @@ public class PrevisualizarVenta extends javax.swing.JInternalFrame {
     private static Usuario vendedor;
     private static VentaData ventadata=new VentaData();
     private static DetalleData detalledata=new DetalleData();
-
-    ProductoData pd = new ProductoData();
+   private static ProductoData pd = new ProductoData();
+   
     private DefaultTableModel md2 = new DefaultTableModel() {
         public boolean isCellEditable(int f, int c) {
             return false;
@@ -282,6 +282,7 @@ public class PrevisualizarVenta extends javax.swing.JInternalFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         crearVenta();
+        
         jButton2.setEnabled(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -305,6 +306,8 @@ public class PrevisualizarVenta extends javax.swing.JInternalFrame {
                             "Venta"
                     );
                     detalledata.agregarDetalle(detalleVenta);
+                    p.setStock(p.getStock()-set.getValue());
+                    pd.modificarProducto(p);
                 }
             }
         } catch (Exception ex) {

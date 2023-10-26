@@ -321,11 +321,15 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
 
     private void jtProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtProductosMouseClicked
         int id = jtProductos.getSelectedRow();
-
+ int stock=Integer.parseInt(jtProductos.getValueAt(id, 4)+"");
         jtNombre.setText(jtProductos.getValueAt(id, 1) + "");
         jtDescripcion.setText(jtProductos.getValueAt(id, 2) + "");
-        if (id >= 0)
+        if (id >= 0 && stock >0){
             jbAgregar.setEnabled(true);
+            
+        }else{
+             jbAgregar.setEnabled(false); 
+        }
     }//GEN-LAST:event_jtProductosMouseClicked
 
     private void jtVentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtVentaMouseClicked
@@ -338,10 +342,17 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
 
     private void jbAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregarActionPerformed
         String cantidad = JOptionPane.showInputDialog("Ingrese la cantidad");
+        
         int cant = 0;
+          int id = jtProductos.getSelectedRow();
+        int stock=Integer.parseInt(jtProductos.getValueAt(id, 4)+"");
         Double precio, total;
         try {
             cant = Integer.parseInt(cantidad);
+            if (cant>stock) {
+             JOptionPane.showMessageDialog(null, "Stock insuficiente");
+             return;
+            }
         } catch (Exception ex) {
             cantidad = JOptionPane.showInputDialog("Error. Solo puede ingresar numeros");
             return;

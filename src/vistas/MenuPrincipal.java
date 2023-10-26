@@ -5,6 +5,7 @@
 package vistas;
 
 import entidades.*;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,7 +24,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         if (usu.getRol() == Rol.VENDEDOR || usu.getRol() == Rol.CLIENTE) {
             jmVendedor.setEnabled(false);
             jmAdministrarProd.setEnabled(false);
-            jmAnular.setEnabled(false);
+           
         }
     }
 
@@ -70,15 +71,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuItem11 = new javax.swing.JMenuItem();
         jMenu8 = new javax.swing.JMenu();
         jMenuItem12 = new javax.swing.JMenuItem();
-        jmAnular = new javax.swing.JMenu();
-        jMenuItem8 = new javax.swing.JMenuItem();
-        jMenuItem9 = new javax.swing.JMenuItem();
         jMenu19 = new javax.swing.JMenu();
         jMenuItem13 = new javax.swing.JMenuItem();
         jMenuItem14 = new javax.swing.JMenuItem();
         jMenuItem15 = new javax.swing.JMenuItem();
+        jMenuItem16 = new javax.swing.JMenuItem();
         jMenu21 = new javax.swing.JMenu();
-        jMenu22 = new javax.swing.JMenu();
+        jMenuItem8 = new javax.swing.JMenuItem();
 
         jMenu3.setText("File");
         jMenuBar2.add(jMenu3);
@@ -216,16 +215,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenu8.add(jMenuItem12);
 
-        jmAnular.setText("Anular");
-
-        jMenuItem8.setText("Anular ultima");
-        jmAnular.add(jMenuItem8);
-
-        jMenuItem9.setText("Buscar y anular");
-        jmAnular.add(jMenuItem9);
-
-        jMenu8.add(jmAnular);
-
         jMenu19.setText("Consultas");
 
         jMenuItem13.setText("Por Cliente");
@@ -252,14 +241,27 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenu19.add(jMenuItem15);
 
+        jMenuItem16.setText("Producto Fecha");
+        jMenuItem16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem16ActionPerformed(evt);
+            }
+        });
+        jMenu19.add(jMenuItem16);
+
         jMenu8.add(jMenu19);
 
         jMenuBar1.add(jMenu8);
 
         jMenu21.setText("Salir");
 
-        jMenu22.setText("Salir");
-        jMenu21.add(jMenu22);
+        jMenuItem8.setText("Salir");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        jMenu21.add(jMenuItem8);
 
         jMenuBar1.add(jMenu21);
 
@@ -391,6 +393,24 @@ Escritorio.removeAll();
         Escritorio.moveToFront(f);
     }//GEN-LAST:event_jMenuItem15ActionPerformed
 
+    private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
+ Escritorio.removeAll();
+        Escritorio.repaint();
+        ConsultarVentaProductoPorFecha f = new ConsultarVentaProductoPorFecha();
+        f.setVisible(true);
+        Escritorio.add(f);
+        Escritorio.moveToFront(f);    }//GEN-LAST:event_jMenuItem16ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+ int salir;
+        System.out.println("saliendo");
+   salir=JOptionPane.showConfirmDialog(null, "Seguro quiere salir?",null,JOptionPane.YES_NO_OPTION);
+        if (salir==0) {
+            System.exit(0);
+        }
+        System.out.println(salir);
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -436,7 +456,6 @@ Escritorio.removeAll();
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu20;
     private javax.swing.JMenu jMenu21;
-    private javax.swing.JMenu jMenu22;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
@@ -454,6 +473,7 @@ Escritorio.removeAll();
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem15;
+    private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -461,9 +481,7 @@ Escritorio.removeAll();
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenu jmAdministrarProd;
-    private javax.swing.JMenu jmAnular;
     private javax.swing.JMenu jmVendedor;
     // End of variables declaration//GEN-END:variables
 }
