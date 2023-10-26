@@ -336,7 +336,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-
+Escritorio.removeAll();
+        Escritorio.repaint();
+        EditarProducto f = new EditarProducto();
+        f.setVisible(true);
+        Escritorio.add(f);
+        Escritorio.moveToFront(f);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
