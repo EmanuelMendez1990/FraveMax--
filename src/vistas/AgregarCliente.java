@@ -211,7 +211,6 @@ public class AgregarCliente extends javax.swing.JInternalFrame {
         email = jtEmail.getText();
         usuario = dni;
         pass = dni;
-//    public Usuario(Rol rol, int dni, String nombre, String apellido, Date fechaIngreso, String usuario, String pass, String salt, String tel, String domicilio, String email) {
 
         salt = PassEnc.getSaltvalue(30);
         pass = PassEnc.generateSecurePassword(pass, salt);
@@ -223,9 +222,6 @@ public class AgregarCliente extends javax.swing.JInternalFrame {
             Usuario nuevo = new Usuario(rol, Integer.parseInt(dni), nombre, apellido, date2, usuario, pass, salt, tel, domicilio, email);
             ud.agregarUsuario(nuevo);
 
-//            Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(date.toString());
-//                  java.sql.Date sqlDate2 = new java.sql.Date(date2.getDate());
-//        System.out.println(sqlDate2);
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
