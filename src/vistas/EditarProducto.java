@@ -219,7 +219,7 @@ private void crearColumnas() {
                                                 .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                                 .addGap(18, 18, 18)
                                 .addComponent(jbBuscar)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 168, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(47, 47, 47)
@@ -350,7 +350,7 @@ private void crearColumnas() {
     }//GEN-LAST:event_jtDescuentoKeyReleased
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
-List<Producto> lista = pd.buscarProductos(jtNombre.getText());
+List<Producto> lista = pd.buscarProductos(jtNombre.getText(),jcbCategoria.getSelectedItem()+"");
 
 if (lista != null) {
             borrarFilas();

@@ -14,11 +14,9 @@ public class EditarCliente extends javax.swing.JInternalFrame {
     private static UsuarioData ud = new UsuarioData();
 
     public EditarCliente() {
-        initComponents(); 
-jbAgregar.setEnabled(false);
+        initComponents();
+        jbAgregar.setEnabled(false);
     }
-
-   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -181,7 +179,7 @@ jbAgregar.setEnabled(false);
 
         if (validacion()) {
             editarUsuario();
-           jbAgregar.setEnabled(false);
+            jbAgregar.setEnabled(false);
         } else {
             JOptionPane.showMessageDialog(rootPane, "Faltan completar datos");
         }
@@ -189,13 +187,11 @@ jbAgregar.setEnabled(false);
     private boolean validacion() {
         boolean valido = false;
         if (!jtDni.getText().isEmpty()
-            
                 && !jtNombre.getText().isEmpty()
                 && !jtApellido.getText().isEmpty()
                 && !jtTel.getText().isEmpty()
                 && !jtDomicilio.getText().isEmpty()
-                && !jtEmail.getText().isEmpty())
-                 {
+                && !jtEmail.getText().isEmpty()) {
             valido = true;
         }
         return valido;
@@ -219,30 +215,34 @@ jbAgregar.setEnabled(false);
     }//GEN-LAST:event_jtTelKeyReleased
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-Usuario usuario =ud.listarUsuario(Integer.parseInt(jtDni.getText()));
-if (usuario.getDni()!=0){
-    jtDni.setText(usuario.getDni()+"");
-    jtNombre.setText(usuario.getNombre()+"");
-    jtApellido.setText(usuario.getApellido()+"");
-    jtTel.setText(usuario.getTel()+"");
-    jtDomicilio.setText(usuario.getDomicilio()+"");
-    jtEmail.setText(usuario.getEmail()+"");
-   jbAgregar.setEnabled(true);
-}else{
-    jtDni.setText("");
-    jtNombre.setText("");
-    jtApellido.setText("");
-    jtTel.setText("");
-    jtDomicilio.setText("");
-    jtEmail.setText("");
-    JOptionPane.showMessageDialog(rootPane, "No se encontro el usuario");
-}
+        if(jtDni.getText().isEmpty()){
+           JOptionPane.showMessageDialog(rootPane, "Faltan Datos");
+            return; 
+        }
+        Usuario usuario = ud.listarUsuario(Integer.parseInt(jtDni.getText()));
+        if (usuario.getDni() != 0) {
+            jtDni.setText(usuario.getDni() + "");
+            jtNombre.setText(usuario.getNombre() + "");
+            jtApellido.setText(usuario.getApellido() + "");
+            jtTel.setText(usuario.getTel() + "");
+            jtDomicilio.setText(usuario.getDomicilio() + "");
+            jtEmail.setText(usuario.getEmail() + "");
+            jbAgregar.setEnabled(true);
+        } else {
+            jtDni.setText("");
+            jtNombre.setText("");
+            jtApellido.setText("");
+            jtTel.setText("");
+            jtDomicilio.setText("");
+            jtEmail.setText("");
+            JOptionPane.showMessageDialog(rootPane, "No se encontro el usuario");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
     private void editarUsuario() {
         String dni, nombre, apellido, tel, domicilio, email, usuario, pass, salt;
-        int usuariobuscado=Integer.parseInt(jtDni.getText());
-        Usuario u =ud.listarUsuario(usuariobuscado);
-        int idUsuario=u.getIdUsuario();
+        int usuariobuscado = Integer.parseInt(jtDni.getText());
+        Usuario u = ud.listarUsuario(usuariobuscado);
+        int idUsuario = u.getIdUsuario();
         Rol rol = Rol.CLIENTE;
         dni = jtDni.getText();
         nombre = jtNombre.getText();
@@ -250,7 +250,7 @@ if (usuario.getDni()!=0){
         tel = jtTel.getText();
         domicilio = jtDomicilio.getText();
         email = jtEmail.getText();
-        usuario =dni;
+        usuario = dni;
         pass = dni;
 //    public Usuario(Rol rol, int dni, String nombre, String apellido, Date fechaIngreso, String usuario, String pass, String salt, String tel, String domicilio, String email) {
 
@@ -261,11 +261,9 @@ if (usuario.getDni()!=0){
             LocalDate date = LocalDate.now();
             Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(date.toString());
 
-            Usuario nuevo = new Usuario(idUsuario,rol, Integer.parseInt(dni), nombre, apellido, date2, usuario, pass, salt, tel, domicilio, email);
+            Usuario nuevo = new Usuario(idUsuario, rol, Integer.parseInt(dni), nombre, apellido, date2, usuario, pass, salt, tel, domicilio, email);
             ud.modificarUsuario(nuevo);
-           
-            
-            
+
 //            Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(date.toString());
 //                  java.sql.Date sqlDate2 = new java.sql.Date(date2.getDate());
 //        System.out.println(sqlDate2);

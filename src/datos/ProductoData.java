@@ -136,15 +136,16 @@ public class ProductoData {
         }
         return producto;
     }
-   public List<Producto> buscarProductos(String busqueda){
+   public List<Producto> buscarProductos(String busqueda, String categoria){
 //       String sql="SELECT DISTINCT * FROM producto WHERE nombre LIKE '"+busqueda+"'% or descripcion LIKE '"+busqueda+"'%";
-       String sql ="SELECT * FROM producto WHERE nombre LIKE ? OR descripcion LIKE ?";
+       String sql ="SELECT * FROM producto WHERE (nombre LIKE ? OR descripcion LIKE ?) AND (categoria = ?)";
 ArrayList<Producto> productos = new ArrayList<>();
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, busqueda+ "%");
- ps.setString(2, busqueda+ "%");
+            ps.setString(2, busqueda+ "%");
+            ps.setString(3, categoria);
             System.out.println(ps);
             ResultSet rs = ps.executeQuery();
 
