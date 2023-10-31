@@ -170,4 +170,38 @@ ps.close();
         }
         return productos;
    }
+   
+   public List<Producto> buscarProductos(String busqueda){
+//       String sql="SELECT DISTINCT * FROM producto WHERE nombre LIKE '"+busqueda+"'% or descripcion LIKE '"+busqueda+"'%";
+       String sql ="SELECT * FROM producto WHERE nombre LIKE ? OR descripcion LIKE ?";
+ArrayList<Producto> productos = new ArrayList<>();
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, busqueda+ "%");
+            ps.setString(2, busqueda+ "%");
+            System.out.println(ps);
+            ResultSet rs = ps.executeQuery();
+
+           while (rs.next()) {
+                
+                Producto producto = new Producto();
+                producto.setIdProducto(rs.getInt("idProducto"));
+                producto.setStock(rs.getInt("stock"));
+                producto.setNombre(rs.getString("nombre"));
+                producto.setDescripcion(rs.getString("descripcion"));
+                producto.setCategoria(Categoria.valueOf(rs.getString("categoria")));
+                producto.setPrecio(rs.getInt("precio"));
+                producto.setEstado(rs.getBoolean("estado"));
+                producto.setEnOferta(rs.getInt("enOferta"));
+                productos.add(producto);
+                
+            }
+ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error. No se encontro " + ex.getMessage());
+
+        }
+        return productos;
+   }
 }
