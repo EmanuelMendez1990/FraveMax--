@@ -288,7 +288,7 @@ public class PrevisualizarVenta extends javax.swing.JInternalFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         crearVenta();
-
+jButton1.setEnabled(false);
         jButton2.setEnabled(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
